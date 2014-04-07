@@ -13,12 +13,12 @@ import com.uqbar.vainilla.appearances.Circle;
 
 public class Bolita extends GameComponent<Pantalla>{
 	
-	private final int radius = 30;
-	private final double speed = 30;
-	private double i, j;
+	private final int radius = 15;
+	private double speed = 50;
+	private double x, y;
 	
 	public Bolita(Color color) {
-		this.setAppearance(new Circle(color, 2 * this.radius));
+		this.setAppearance(new Circle(color,2*this.radius));
 	}
 	
 	@Override
@@ -29,38 +29,39 @@ public class Bolita extends GameComponent<Pantalla>{
 	@Override
 	public void update(DeltaState deltaState) {
 		double advanced = this.speed * deltaState.getDelta();
-		this.move(this.i * advanced, this.j * advanced);
-		super.update(deltaState);
+		this.move(this.x * advanced, this.y * advanced);
 		this.fijarseRebote();
+		super.update(deltaState);
 	}
 	
 	private void fijarseRebote() {
-		if(this.enBorde(this.getY() + this.radius,0) || 
-		   this.enBorde(this.getY() + this.radius, this.getAppearance().getHeight())){
-			this.i = this.i * -1;
-		}else if (this.enBorde(this.getX() + this.radius,this.getAppearance().getWidth()) || 
-				  this.enBorde(this.getX() + this.radius, 0 )){
-			this.j = this.j * -1;
+		if(this.enBordeExtremo(this.getY(), this.getY() + this.radius * 2, this.getGame().getDisplayHeight())){
+			this.y = this.y * -1;
+			this.speed = this.speed +5;
+		}else if (this.enBordeExtremo(this.getX(), this.getX() + this.radius * 2, this.getGame().getDisplayWidth())){
+			this.x = this.x * -1;
+			this.speed = this.speed +5;
 		}
 	}
 
-	private boolean enBorde(double a, double b) {
-		return this.radius/2 > Math.abs( a- b);
+	private boolean enBordeExtremo(double inferior, double superior, double extremo) {
+		return inferior <= 0 || extremo <= superior;
 	}
 
 	@Override
 	public void onSceneActivated() {
 		Random random = new Random();
-		this.setX(random.nextDouble() * this.getGame().getDisplayWidth());
-		this.setY(random.nextDouble() * this.getGame().getDisplayHeight());
-		this.i = random.nextDouble() * 2 - 1;
-		this.j = random.nextDouble() * 2 - 1;
-
-		double m = Math.sqrt(this.i * this.i + this.j * this.j);
-
-		this.i = this.i / m;
-		this.j = this.j / m;
-
+		this.setX(random.nextInt(this.getGame().getDisplayWidth()));
+		this.setY(random.nextInt(this.getGame().getDisplayHeight()));
+		this.getVector(random);
 		super.onSceneActivated();
+	}
+
+	private void getVector(Random random) {
+		this.x = random.nextDouble() * 2 - 1;
+		this.y = random.nextDouble() * 2 - 1;
+		double m = Math.sqrt(this.x * this.x + this.y * this.y);
+		this.x = this.x / m;
+		this.y = this.y / m;
 	}
 }
