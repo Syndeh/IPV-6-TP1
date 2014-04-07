@@ -4,6 +4,9 @@ import java.awt.Dimension;
 
 import com.uqbar.vainilla.Game;
 
+/**
+ * Prueba
+ */ 
 public class Arkanoid extends Game {
 
 	@Override
