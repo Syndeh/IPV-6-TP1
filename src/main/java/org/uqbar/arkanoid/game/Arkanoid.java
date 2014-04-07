@@ -3,8 +3,8 @@ package org.uqbar.arkanoid.game;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import org.uqbar.arkanoid.components.Bolita;
-import org.uqbar.arkanoid.scene.Pantalla;
+import org.uqbar.arkanoid.components.Ball;
+import org.uqbar.arkanoid.scene.ArkanoidScene;
 
 import com.uqbar.vainilla.DesktopGameLauncher;
 import com.uqbar.vainilla.Game;
@@ -21,8 +21,8 @@ public class Arkanoid extends Game {
 
 	@Override
 	protected void setUpScenes() {
-		Pantalla scene = new Pantalla();
-		scene.setBolita(new Bolita(Color.BLUE));
+		ArkanoidScene scene = new ArkanoidScene();
+		scene.setBall(new Ball(Color.BLUE));
 		this.setCurrentScene(scene);
 	}
 
