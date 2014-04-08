@@ -28,7 +28,7 @@ public class Arkanoid extends Game {
 
 	@Override
 	public Dimension getDisplaySize() {
-		return new Dimension(250, 400);
+		return new Dimension(200, 500);
 	}
 
 	@Override

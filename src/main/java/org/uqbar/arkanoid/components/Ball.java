@@ -13,9 +13,9 @@ import com.uqbar.vainilla.appearances.Circle;
 
 public class Ball extends GameComponent<ArkanoidScene>{
 	
-	private final int radius = 15;
+	private final int radius = 50;
 	private double speed = 50;
-	private double x, y;
+	private double i, j;
 	
 	public Ball(Color color) {
 		this.setAppearance(new Circle(color,2*this.radius));
@@ -29,23 +29,50 @@ public class Ball extends GameComponent<ArkanoidScene>{
 	@Override
 	public void update(DeltaState deltaState) {
 		double advanced = this.speed * deltaState.getDelta();
-		this.move(this.x * advanced, this.y * advanced);
+		this.move(this.i * advanced, this.j * advanced);
 		this.checkRebound();
 		super.update(deltaState);
 	}
 	
 	private void checkRebound() {
-		if(this.atBorder(this.getY(), this.getY() + this.radius * 2, this.getGame().getDisplayHeight())){
-			this.y = this.y * -1;
+		if(this.atBottonBorder()){
+			this.j = this.j * -1;
+			this.setY(this.getGame().getDisplayHeight()- this.radius * 2);
 			this.speed = this.speed +5;
-		}else if (this.atBorder(this.getX(), this.getX() + this.radius * 2, this.getGame().getDisplayWidth())){
-			this.x = this.x * -1;
-			this.speed = this.speed +5;
+			this.setAppearance(new Circle(Color.RED, this.radius *2));
+		}else if (this.atTopBorder()){
+			this.j = this.j * -1;
+			this.setY(0);
+		}else if (this.atLeftBorder()){
+			this.i = this.i * -1;
+			this.setX(0);
+		}else if (this.atRightBorder()){
+			this.i = this.i * -1;
+			this.setX(this.getGame().getDisplayWidth() - this.radius * 2);
 		}
 	}
 
-	private boolean atBorder(double botton, double top, double extreme) {
-		return botton <= 0 || extreme <= top;
+	private boolean atBottonBorder() {
+		return  this.getGame().getDisplayHeight() <= this.obtainAbsoluteY();
+	}
+
+	private boolean atTopBorder() {
+		return this.getY() <= 0;
+	}
+	
+	private boolean atRightBorder() {
+		return this.getGame().getDisplayWidth() <= this.obtainAbsoluteX();
+	}
+	private double obtainAbsoluteX() {
+		return this.getX() + this.radius * 2;
+	}
+
+	private boolean atLeftBorder() {
+		return this.getX() <= 0;
+	}
+
+	private double obtainAbsoluteY() {
+		return this.getY() + this.radius * 2;
 	}
 
 	@Override
@@ -58,10 +85,10 @@ public class Ball extends GameComponent<ArkanoidScene>{
 	}
 
 	private void getVector(Random random) {
-		this.x = random.nextDouble() * 2 - 1;
-		this.y = random.nextDouble() * 2 - 1;
-		double m = Math.sqrt(this.x * this.x + this.y * this.y);
-		this.x = this.x / m;
-		this.y = this.y / m;
+		this.i = random.nextDouble() * 2 - 1;
+		this.j = random.nextDouble() * 2 - 1;
+		double m = Math.sqrt(this.i * this.i + this.j * this.j);
+		this.i = this.i / m;
+		this.j = this.j / m;
 	}
 }
