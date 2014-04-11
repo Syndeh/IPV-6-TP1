@@ -3,4 +3,4 @@
 .settings/
 .gitconfig
 *~
-target/
+target/*
