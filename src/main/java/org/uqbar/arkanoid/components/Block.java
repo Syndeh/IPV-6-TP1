@@ -6,12 +6,9 @@ import java.awt.Graphics2D;
 import org.uqbar.arkanoid.components.strategies.MovementStrategy;
 import org.uqbar.arkanoid.scene.ArkanoidScene;
 
-import orq.uqbar.arkanoid.utils.Vector;
-
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Rectangle;
-import com.uqbar.vainilla.colissions.CollisionDetector;
 
 public class Block extends GameComponent<ArkanoidScene> {
 
