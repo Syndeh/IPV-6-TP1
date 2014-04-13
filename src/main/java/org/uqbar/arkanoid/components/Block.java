@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import org.uqbar.arkanoid.components.strategies.MovementStrategy;
 import org.uqbar.arkanoid.scene.ArkanoidScene;
 
+import orq.uqbar.arkanoid.utils.Vector;
+
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Rectangle;
@@ -15,6 +17,7 @@ public class Block extends GameComponent<ArkanoidScene> {
 
 	private MovementStrategy<Block> movementStrategy;
 	private double speed = 100;
+	
 	
 	public Block(double initialX, double initialY, int width, int height, MovementStrategy<Block> movementStrategy){
 		super(new Rectangle(Color.RED, width, height),initialX,initialY);
@@ -29,26 +32,16 @@ public class Block extends GameComponent<ArkanoidScene> {
 	@Override
 	public void update(DeltaState deltaState) {
 		this.getMovementStrategy().move(this, deltaState);
-		if(this.collideWithBall()){
-			this.getScene().getBall().setJ(this.getScene().getBall().getJ()*-1);
-		}
+
 		
 		super.update(deltaState);
 	}
 	
+
 	
 	
-	private boolean collideWithBall() {
-		return CollisionDetector
-				.INSTANCE
-					.collidesCircleAgainstRect(this.getScene().getBall().getX(),
-											this.getScene().getBall().getY(),
-											this.getScene().getBall().radius,
-											this.getX(),
-											this.getY(),
-											this.getAppearance().getWidth(),
-											this.getAppearance().getHeight());
-	}
+	
+	
 
 	@Override
 	public void onSceneActivated() {

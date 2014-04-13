@@ -30,13 +30,13 @@ public class Arkanoid extends Game {
 	}
 
 	private Block BuildMovementBlock() {
-		Block movementBlock = new Block((double)(100-15), (double)(500-15), 50, 10, new LateralMovementStrategy());
+		Block movementBlock = new Block((double)(100-15), (double)(300-15), 50, 10, new LateralMovementStrategy());
 		return movementBlock;
 	}
 
 	@Override
 	public Dimension getDisplaySize() {
-		return new Dimension(200, 500);
+		return new Dimension(200, 300);
 	}
 
 	@Override
