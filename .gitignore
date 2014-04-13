@@ -4,3 +4,4 @@
 .gitconfig
 *~
 target/*
+/target
