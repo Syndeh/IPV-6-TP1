@@ -12,10 +12,16 @@ public class LateralMovementStrategy extends MovementStrategy<Block> {
 		
 		double advanced = block.getSpeed() * deltaState.getDelta();
 		if(deltaState.isKeyBeingHold(Key.RIGHT)){
-			block.move(advanced,0);
+			if(!this.atRightBorder(block))
+			{
+				block.move(advanced,0);
+			}
 		}
 		if(deltaState.isKeyBeingHold(Key.LEFT)){
-			block.move(-1*advanced,0);
+			if(!this.atLeftBorder(block))
+			{
+				block.move(-1*advanced,0);
+			}
 		}
 	}
 

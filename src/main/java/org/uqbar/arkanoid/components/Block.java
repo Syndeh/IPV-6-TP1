@@ -1,5 +1,6 @@
 package org.uqbar.arkanoid.components;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import org.uqbar.arkanoid.components.strategies.MovementStrategy;
@@ -7,12 +8,17 @@ import org.uqbar.arkanoid.scene.ArkanoidScene;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
+import com.uqbar.vainilla.appearances.Rectangle;
 
 public class Block extends GameComponent<ArkanoidScene> {
 
-	private MovementStrategy<GameComponent<ArkanoidScene>> movementStrategy;
-	private double speed = 50;
+	private MovementStrategy<Block> movementStrategy;
+	private double speed = 100;
 	
+	public Block(double initialX, double initialY, int width, int height, MovementStrategy<Block> movementStrategy){
+		super(new Rectangle(Color.RED, width, height),initialX,initialY);
+		this.setMovementStrategy(movementStrategy);
+	}
 	
 	@Override
 	public void render(Graphics2D graphics) {
@@ -24,13 +30,26 @@ public class Block extends GameComponent<ArkanoidScene> {
 		this.getMovementStrategy().move(this, deltaState);
 		super.update(deltaState);
 	}
+	
+	@Override
+	public void onSceneActivated() {
+		super.onSceneActivated();
+	}
+	
+	public double obtainAbsoluteX() {
+		return this.getX() + this.getAppearance().getWidth();
+	}
 
-	protected MovementStrategy<GameComponent<ArkanoidScene>> getMovementStrategy() {
+	public double obtainAbsoluteY() {
+		return this.getY() + this.getAppearance().getHeight();
+	}
+
+	protected MovementStrategy<Block> getMovementStrategy() {
 		return movementStrategy;
 	}
 
 	protected void setMovementStrategy(
-			MovementStrategy<GameComponent<ArkanoidScene>> movementStrategy) {
+			MovementStrategy<Block> movementStrategy) {
 		this.movementStrategy = movementStrategy;
 	}
 

@@ -13,7 +13,7 @@ import com.uqbar.vainilla.appearances.Circle;
 
 public class Ball extends GameComponent<ArkanoidScene>{
 	
-	private final int radius = 50;
+	private final int radius = 10;
 	private double speed = 50;
 	private double i, j;
 	

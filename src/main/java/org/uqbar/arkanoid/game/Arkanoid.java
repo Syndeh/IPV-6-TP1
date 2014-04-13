@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import org.uqbar.arkanoid.components.Ball;
+import org.uqbar.arkanoid.components.Block;
+import org.uqbar.arkanoid.components.strategies.LateralMovementStrategy;
 import org.uqbar.arkanoid.scene.ArkanoidScene;
 
 import com.uqbar.vainilla.DesktopGameLauncher;
@@ -23,7 +25,13 @@ public class Arkanoid extends Game {
 	protected void setUpScenes() {
 		ArkanoidScene scene = new ArkanoidScene();
 		scene.setBall(new Ball(Color.BLUE));
+		scene.setMovementBlock(this.BuildMovementBlock());
 		this.setCurrentScene(scene);
+	}
+
+	private Block BuildMovementBlock() {
+		Block movementBlock = new Block((double)(100-15), (double)(500-15), 30, 10, new LateralMovementStrategy());
+		return movementBlock;
 	}
 
 	@Override
