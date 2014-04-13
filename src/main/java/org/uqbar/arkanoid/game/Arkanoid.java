@@ -30,7 +30,7 @@ public class Arkanoid extends Game {
 	}
 
 	private Block BuildMovementBlock() {
-		Block movementBlock = new Block((double)(100-15), (double)(500-15), 30, 10, new LateralMovementStrategy());
+		Block movementBlock = new Block((double)(100-15), (double)(500-15), 50, 10, new LateralMovementStrategy());
 		return movementBlock;
 	}
 

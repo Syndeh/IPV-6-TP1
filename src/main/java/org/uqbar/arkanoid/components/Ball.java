@@ -13,8 +13,8 @@ import com.uqbar.vainilla.appearances.Circle;
 
 public class Ball extends GameComponent<ArkanoidScene>{
 	
-	private final int radius = 10;
-	private double speed = 50;
+	public final int radius = 10;
+	private double speed = 150;
 	private double i, j;
 	
 	public Ball(Color color) {
@@ -90,5 +90,21 @@ public class Ball extends GameComponent<ArkanoidScene>{
 		double m = Math.sqrt(this.i * this.i + this.j * this.j);
 		this.i = this.i / m;
 		this.j = this.j / m;
+	}
+
+	public double getI() {
+		return i;
+	}
+
+	public void setI(double i) {
+		this.i = i;
+	}
+
+	public double getJ() {
+		return j;
+	}
+
+	public void setJ(double j) {
+		this.j = j;
 	}
 }
