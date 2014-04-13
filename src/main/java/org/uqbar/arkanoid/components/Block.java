@@ -11,6 +11,7 @@ import com.uqbar.vainilla.GameComponent;
 public class Block extends GameComponent<ArkanoidScene> {
 
 	private MovementStrategy<GameComponent<ArkanoidScene>> movementStrategy;
+	private double speed = 50;
 	
 	
 	@Override
@@ -20,7 +21,8 @@ public class Block extends GameComponent<ArkanoidScene> {
 	
 	@Override
 	public void update(DeltaState deltaState) {
-
+		this.getMovementStrategy().move(this, deltaState);
+		super.update(deltaState);
 	}
 
 	protected MovementStrategy<GameComponent<ArkanoidScene>> getMovementStrategy() {
@@ -30,6 +32,14 @@ public class Block extends GameComponent<ArkanoidScene> {
 	protected void setMovementStrategy(
 			MovementStrategy<GameComponent<ArkanoidScene>> movementStrategy) {
 		this.movementStrategy = movementStrategy;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 }
