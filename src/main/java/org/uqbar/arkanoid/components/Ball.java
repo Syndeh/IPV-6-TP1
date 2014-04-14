@@ -10,7 +10,6 @@ import org.uqbar.arkanoid.scene.ArkanoidScene;
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Circle;
-import com.uqbar.vainilla.colissions.CollisionDetector;
 
 public class Ball extends GameComponent<ArkanoidScene>{
 	
@@ -31,63 +30,11 @@ public class Ball extends GameComponent<ArkanoidScene>{
 	public void update(DeltaState deltaState) {
 		double advanced = this.speed * deltaState.getDelta();
 
-		if(this.collideWithBlock()){
-			double angle = this.obtainAngle(this.obtainCollisionPoint());
-			
-			double x = Math.sin(angle);
-			double y = Math.cos(angle);
-			System.out.println("Sin x:" + x);
-			
-			double ySign = Math.signum(y);
-
-			this.setI(x);
-
-			System.out.println("I:" + this.getI());
-			this.setJ( (y)* -1 * ySign);
-			System.out.println("J:" + this.getJ());
-			
-			//this.setY(284);
-			
-		}
 		this.move(this.i * advanced, this.j * advanced);
 		this.checkRebound();
 		super.update(deltaState);
 	}
 	
-	public double obtainAngle(double x){
-		
-		double majorAngle = Math.PI/3;
-		double minorAngle = Math.PI/3 * -1;
-		
-		return ((majorAngle - minorAngle)/this.getScene().getMovementBlock().getAppearance().getWidth()) * x + minorAngle;
-	}
-	
-	public double obtainCollisionPoint(){
-		double collisionPoint;
-		if(this.getX()>=this.getScene().getMovementBlock().getX() 
-				&& this.getX() + this.getAppearance().getWidth() < this.getScene().getMovementBlock().getX() + this.getScene().getMovementBlock().getAppearance().getWidth())
-		{
-			collisionPoint = this.getX() + this.radius - this.getScene().getMovementBlock().getX();
-		}else if (this.getX() < this.getScene().getMovementBlock().getX()) {
-			collisionPoint = 0;
-		} else {
-			collisionPoint = this.getScene().getMovementBlock().getAppearance().getWidth();
-		}
-		System.out.println(collisionPoint);
-		return collisionPoint;
-	}
-	
-	private boolean collideWithBlock() {
-		return CollisionDetector
-				.INSTANCE
-					.collidesCircleAgainstRect(this.getX(),
-											this.getY(),
-											this.radius,
-											this.getScene().getMovementBlock().getX(),
-											this.getScene().getMovementBlock().getY(),
-											this.getScene().getMovementBlock().getAppearance().getWidth(),
-											this.getScene().getMovementBlock().getAppearance().getHeight());
-	}
 	
 	private void checkRebound() {
 		if(this.atBottonBorder()){
@@ -138,6 +85,10 @@ public class Ball extends GameComponent<ArkanoidScene>{
 		this.getVector(random);
 		super.onSceneActivated();
 	}
+	
+	public void goFaster(double x){
+		this.setSpeed(this.getSpeed()+x);
+	}
 
 	private void getVector(Random random) {
 		this.i = 2;//random.nextDouble() * 2 - 1;
@@ -161,5 +112,13 @@ public class Ball extends GameComponent<ArkanoidScene>{
 
 	public void setJ(double j) {
 		this.j = j;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 }
