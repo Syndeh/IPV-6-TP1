@@ -1,17 +1,15 @@
 package org.uqbar.arkanoid.components;
 
-
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.Random;
 
-import org.uqbar.arkanoid.scene.ArkanoidScene;
+import org.uqbar.arkanoid.scene.ArkanoidLevelScene;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Circle;
 
-public class Ball extends GameComponent<ArkanoidScene>{
+public class Ball extends GameComponent<ArkanoidLevelScene>{
 	
 	public final int radius = 10;
 	private double speed = 150;
@@ -40,11 +38,12 @@ public class Ball extends GameComponent<ArkanoidScene>{
 		if(this.atBottonBorder()){
 			this.j = this.j * -1;
 			this.setY(this.getGame().getDisplayHeight()- this.radius * 2);
-			//this.speed = this.speed +5;
 			this.setAppearance(new Circle(Color.RED, this.radius *2));
+			this.getScene().loseLife();
 		}else if (this.atTopBorder()){
 			this.j = this.j * -1;
 			this.setY(0);
+			this.getScene().addPoint();
 		}else if (this.atLeftBorder()){
 			this.i = this.i * -1;
 			this.setX(0);
@@ -76,27 +75,18 @@ public class Ball extends GameComponent<ArkanoidScene>{
 	private double obtainAbsoluteY() {
 		return this.getY() + this.radius * 2;
 	}
-
-	@Override
-	public void onSceneActivated() {
-		Random random = new Random();
-		this.setX(random.nextInt(this.getGame().getDisplayWidth()));
-		this.setY(random.nextInt(this.getGame().getDisplayHeight()));
-		this.getVector(random);
-		super.onSceneActivated();
-	}
 	
 	public void goFaster(double x){
 		this.setSpeed(this.getSpeed()+x);
 	}
 
-	private void getVector(Random random) {
-		this.i = 2;//random.nextDouble() * 2 - 1;
-		this.j = 1;//random.nextDouble() * 2 - 1;
-		double m = Math.sqrt(this.i * this.i + this.j * this.j);
-		this.i = this.i / m;
-		this.j = this.j / m;
-	}
+//	private void getVector(Random random) {
+//		this.i = 2;//random.nextDouble() * 2 - 1;
+//		this.j = 1;//random.nextDouble() * 2 - 1;
+//		double m = Math.sqrt(this.i * this.i + this.j * this.j);
+//		this.i = this.i / m;
+//		this.j = this.j / m;
+//	}
 
 	public double getI() {
 		return i;
@@ -120,5 +110,13 @@ public class Ball extends GameComponent<ArkanoidScene>{
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public void setAngle(double pi) {
+		this.setI(Math.cos(Math.PI * pi));
+		System.out.println(this.getI());
+		
+		this.setJ(Math.sin(Math.PI * pi));
+		System.out.println(this.getJ());
 	}
 }

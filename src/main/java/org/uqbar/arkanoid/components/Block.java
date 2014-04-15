@@ -5,14 +5,14 @@ import java.awt.Graphics2D;
 
 import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
 import org.uqbar.arkanoid.components.strategies.MovementStrategy;
-import org.uqbar.arkanoid.scene.ArkanoidScene;
+import org.uqbar.arkanoid.scene.ArkanoidLevelOneScene;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Rectangle;
 import com.uqbar.vainilla.colissions.CollisionDetector;
 
-public class Block extends GameComponent<ArkanoidScene> {
+public class Block extends GameComponent<ArkanoidLevelOneScene> {
 
 	private MovementStrategy<Block> movementStrategy;
 	private CollisionStrategy<Block> collisionStrategy;
@@ -20,8 +20,8 @@ public class Block extends GameComponent<ArkanoidScene> {
 	private int life=1;
 	
 	
-	public Block(double initialX, double initialY, int width, int height, MovementStrategy<Block> movementStrategy){
-		super(new Rectangle(Color.RED, width, height),initialX,initialY);
+	public Block(int width, int height, MovementStrategy<Block> movementStrategy){
+		super(new Rectangle(Color.RED, width, height), 0, 0);
 		this.setMovementStrategy(movementStrategy);
 	}
 	

@@ -1,13 +1,8 @@
 package org.uqbar.arkanoid.game;
 
-import java.awt.Color;
 import java.awt.Dimension;
 
-import org.uqbar.arkanoid.components.Ball;
-import org.uqbar.arkanoid.components.Block;
-import org.uqbar.arkanoid.components.strategies.LateralMovementStrategy;
-import org.uqbar.arkanoid.components.strategies.VariableAngleCollisionStrategy;
-import org.uqbar.arkanoid.scene.ArkanoidScene;
+import org.uqbar.arkanoid.scene.ArkanoidLevelOneScene;
 
 import com.uqbar.vainilla.DesktopGameLauncher;
 import com.uqbar.vainilla.Game;
@@ -25,22 +20,13 @@ public class Arkanoid extends Game {
 
 	@Override
 	protected void setUpScenes() {
-		ArkanoidScene scene = new ArkanoidScene();
-		scene.setBall(new Ball(Color.BLUE));
-		scene.setMovementBlock(this.BuildMovementBlock());
-		
+		ArkanoidLevelOneScene scene = new ArkanoidLevelOneScene();		
 		this.setCurrentScene(scene);
-	}
-
-	private Block BuildMovementBlock() {
-		Block movementBlock = new Block((double)(100-15), (double)(300-15), 50, 10, new LateralMovementStrategy());
-		movementBlock.setCollisionStrategy(new VariableAngleCollisionStrategy());
-		return movementBlock;
 	}
 
 	@Override
 	public Dimension getDisplaySize() {
-		return new Dimension(200, 300);
+		return new Dimension(400, 600);
 	}
 
 	@Override
