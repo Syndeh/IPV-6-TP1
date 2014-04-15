@@ -11,6 +11,9 @@ import org.uqbar.arkanoid.scene.ArkanoidScene;
 import com.uqbar.vainilla.DesktopGameLauncher;
 import com.uqbar.vainilla.Game;
 
+/**
+ * Prueba
+ */ 
 public class Arkanoid extends Game {
 
 	public static void main(String[] args) throws Exception {
