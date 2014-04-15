@@ -6,14 +6,13 @@ import java.awt.Dimension;
 import org.uqbar.arkanoid.components.Ball;
 import org.uqbar.arkanoid.components.Block;
 import org.uqbar.arkanoid.components.strategies.LateralMovementStrategy;
+import org.uqbar.arkanoid.components.strategies.VariableAngleCollisionStrategy;
 import org.uqbar.arkanoid.scene.ArkanoidScene;
 
 import com.uqbar.vainilla.DesktopGameLauncher;
 import com.uqbar.vainilla.Game;
 
-/**
- * Prueba
- */ 
+
 public class Arkanoid extends Game {
 
 	public static void main(String[] args) throws Exception {
@@ -29,11 +28,13 @@ public class Arkanoid extends Game {
 		ArkanoidScene scene = new ArkanoidScene();
 		scene.setBall(new Ball(Color.BLUE));
 		scene.setMovementBlock(this.BuildMovementBlock());
+		
 		this.setCurrentScene(scene);
 	}
 
 	private Block BuildMovementBlock() {
 		Block movementBlock = new Block((double)(100-15), (double)(300-15), 50, 10, new LateralMovementStrategy());
+		movementBlock.setCollisionStrategy(new VariableAngleCollisionStrategy());
 		return movementBlock;
 	}
 

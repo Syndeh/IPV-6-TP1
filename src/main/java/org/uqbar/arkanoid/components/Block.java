@@ -3,6 +3,7 @@ package org.uqbar.arkanoid.components;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
 import org.uqbar.arkanoid.components.strategies.MovementStrategy;
 import org.uqbar.arkanoid.scene.ArkanoidScene;
 
@@ -14,6 +15,7 @@ import com.uqbar.vainilla.colissions.CollisionDetector;
 public class Block extends GameComponent<ArkanoidScene> {
 
 	private MovementStrategy<Block> movementStrategy;
+	private CollisionStrategy<Block> collisionStrategy;
 	private double speed = 100;
 	private int life=1;
 	
@@ -33,40 +35,13 @@ public class Block extends GameComponent<ArkanoidScene> {
 		this.getMovementStrategy().move(this, deltaState);
 
 		if(this.collideWithBall()){
-			System.out.println("colisiono");
-			double angle = this.obtainAngle(this.obtainCollisionPoint());
-			double x = Math.sin(angle);
-			double y = Math.cos(angle);
-			double ySign = Math.signum(y);
-			this.getScene().getBall().setI(x);
-			this.getScene().getBall().setJ( (y)* -1 * ySign);
-			this.getScene().getBall().goFaster(20);
+			this.getCollisionStrategy().hit(this);
 		}
 		super.update(deltaState);
 	}
 	
 	
-	public double obtainAngle(double x){
-		
-		double majorAngle = Math.PI/3;
-		double minorAngle = Math.PI/3 * -1;
-		
-		return ((majorAngle - minorAngle)/this.getAppearance().getWidth()) * x + minorAngle;
-	}
 	
-	public double obtainCollisionPoint(){
-		double collisionPoint;
-		if(this.getScene().getBall().getX()>=this.getX() 
-				&& this.getScene().getBall().getX() + this.getScene().getBall().getAppearance().getWidth() < this.getX() + this.getAppearance().getWidth())
-		{
-			collisionPoint = this.getX() + this.getScene().getBall().radius - this.getX();
-		}else if (this.getScene().getBall().getX() < this.getX()) {
-			collisionPoint = 0;
-		} else {
-			collisionPoint = this.getAppearance().getWidth();
-		}
-		return collisionPoint;
-	}
 	
 	private boolean collideWithBall() {
 		return CollisionDetector
@@ -117,6 +92,14 @@ public class Block extends GameComponent<ArkanoidScene> {
 
 	public void setLife(int life) {
 		this.life = life;
+	}
+
+	public CollisionStrategy<Block> getCollisionStrategy() {
+		return collisionStrategy;
+	}
+
+	public void setCollisionStrategy(CollisionStrategy<Block> collisionStrategy) {
+		this.collisionStrategy = collisionStrategy;
 	}
 	
 }
