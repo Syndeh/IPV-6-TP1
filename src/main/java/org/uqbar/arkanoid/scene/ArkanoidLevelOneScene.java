@@ -3,15 +3,14 @@ package org.uqbar.arkanoid.scene;
 import java.awt.Color;
 
 import org.uqbar.arkanoid.components.Ball;
-import org.uqbar.arkanoid.components.Block;
-import org.uqbar.arkanoid.components.strategies.LateralMovementStrategy;
-import org.uqbar.arkanoid.components.strategies.VariableAngleCollisionStrategy;
+import org.uqbar.arkanoid.components.Paddle;
 
 public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 	
 	/**
 	 * Color: Green
 	 */
+	@Override
 	protected void initializeBall() {
 		this.setBall(new Ball(Color.GREEN));
 		this.getBall().alignHorizontalCenterTo(this.getGame().getDisplayWidth()/2);
@@ -29,6 +28,7 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 	 * InitialX: (DisplayWidth / 2) - (Width / 2)
 	 * InitialY: DisplayHeight - Height - 5
 	 */
+	@Override
 	protected void initializePaddleBlock() {
 		
 		int paddleWidth = this.getGame().getDisplayWidth()/4;
@@ -36,11 +36,10 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 		int initialX = this.getGame().getDisplayWidth() / 2 - paddleWidth / 2;
 		int initialY = this.getGame().getDisplayHeight() - paddleHeight - 20;
 		
-		Block paddleBlock = new Block(paddleWidth, paddleHeight, new LateralMovementStrategy());
+		Paddle paddleBlock = new Paddle(paddleWidth, paddleHeight);
 		paddleBlock.setX(initialX);
 		paddleBlock.setY(initialY);
 		paddleBlock.setSpeed(250);
-		paddleBlock.setCollisionStrategy(new VariableAngleCollisionStrategy());
 		
 		this.setPaddleBlock(paddleBlock);
 		this.addComponent(paddleBlock);

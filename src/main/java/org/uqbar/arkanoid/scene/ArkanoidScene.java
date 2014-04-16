@@ -1,14 +1,14 @@
 package org.uqbar.arkanoid.scene;
 
 import org.uqbar.arkanoid.components.Ball;
-import org.uqbar.arkanoid.components.Block;
+import org.uqbar.arkanoid.components.Paddle;
 
 import com.uqbar.vainilla.GameScene;
 
 public class ArkanoidScene extends GameScene {
 
 	private Ball ball;
-	private Block movementBlock;
+	private Paddle movementBlock;
 
 	public Ball getBall() {
 		return this.ball;
@@ -19,11 +19,11 @@ public class ArkanoidScene extends GameScene {
 		this.addComponent(b);
 	}
 
-	public Block getMovementBlock() {
+	public Paddle getMovementBlock() {
 		return movementBlock;
 	}
 
-	public void setMovementBlock(Block movementBlock) {
+	public void setMovementBlock(Paddle movementBlock) {
 		this.movementBlock = movementBlock;
 		this.addComponent(movementBlock);
 	}

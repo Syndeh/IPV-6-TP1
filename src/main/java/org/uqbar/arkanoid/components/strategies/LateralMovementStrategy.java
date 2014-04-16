@@ -1,14 +1,14 @@
 package org.uqbar.arkanoid.components.strategies;
 
-import org.uqbar.arkanoid.components.Block;
+import org.uqbar.arkanoid.components.Paddle;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.events.constants.Key;
 
-public class LateralMovementStrategy extends MovementStrategy<Block> {
+public class LateralMovementStrategy extends MovementStrategy<Paddle> {
 
 	@Override
-	public void move(Block block, DeltaState deltaState) {
+	public void move(Paddle block, DeltaState deltaState) {
 		
 		double advanced = block.getSpeed() * deltaState.getDelta();
 		if(deltaState.isKeyBeingHold(Key.RIGHT)){

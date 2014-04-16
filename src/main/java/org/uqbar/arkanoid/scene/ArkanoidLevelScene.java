@@ -1,7 +1,7 @@
 package org.uqbar.arkanoid.scene;
 
 import org.uqbar.arkanoid.components.Ball;
-import org.uqbar.arkanoid.components.Block;
+import org.uqbar.arkanoid.components.Paddle;
 import org.uqbar.arkanoid.components.LivesCounter;
 import org.uqbar.arkanoid.components.PointsCounter;
 import org.uqbar.arkanoid.components.SpeedMeter;
@@ -16,7 +16,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	private SpeedMeter speedMeter;
 	
 	private Ball ball;
-	private Block paddleBlock;
+	private Paddle paddleBlock;
 
 	
 	@Override
@@ -73,11 +73,11 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		this.addComponent(ball);
 	}
 
-	public Block getPaddleBlock() {
+	public Paddle getPaddleBlock() {
 		return paddleBlock;
 	}
 
-	public void setPaddleBlock(Block paddleBlock) {
+	public void setPaddleBlock(Paddle paddleBlock) {
 		this.paddleBlock = paddleBlock;
 		this.addComponent(this.paddleBlock);
 	}

@@ -11,7 +11,7 @@ import com.uqbar.vainilla.appearances.Circle;
 
 public class Ball extends GameComponent<ArkanoidLevelScene>{
 	
-	public final int radius = 10;
+	private int radius = 10;
 	private double speed = 150;
 	private double i, j;
 	
@@ -35,7 +35,7 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	
 	
 	private void checkRebound() {
-		if(this.atBottonBorder()){
+		if(this.atBottomBorder()){
 			this.j = this.j * -1;
 			this.setY(this.getGame().getDisplayHeight()- this.radius * 2);
 			this.setAppearance(new Circle(Color.RED, this.radius *2));
@@ -53,7 +53,7 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		}
 	}
 
-	private boolean atBottonBorder() {
+	private boolean atBottomBorder() {
 		return  this.getGame().getDisplayHeight() <= this.obtainAbsoluteY();
 	}
 
@@ -80,16 +80,8 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		this.setSpeed(this.getSpeed()+x);
 	}
 
-//	private void getVector(Random random) {
-//		this.i = 2;//random.nextDouble() * 2 - 1;
-//		this.j = 1;//random.nextDouble() * 2 - 1;
-//		double m = Math.sqrt(this.i * this.i + this.j * this.j);
-//		this.i = this.i / m;
-//		this.j = this.j / m;
-//	}
-
 	public double getI() {
-		return i;
+		return this.i;
 	}
 
 	public void setI(double i) {
@@ -97,7 +89,7 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	}
 
 	public double getJ() {
-		return j;
+		return this.j;
 	}
 
 	public void setJ(double j) {
@@ -105,7 +97,15 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	}
 
 	public double getSpeed() {
-		return speed;
+		return this.speed;
+	}
+
+	public int getRadius() {
+		return this.radius;
+	}
+	
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 
 	public void setSpeed(double speed) {
@@ -114,9 +114,8 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 
 	public void setAngle(double pi) {
 		this.setI(Math.cos(Math.PI * pi));
-		System.out.println(this.getI());
-		
+//		System.out.println(this.getI());
 		this.setJ(Math.sin(Math.PI * pi));
-		System.out.println(this.getJ());
+//		System.out.println(this.getJ());
 	}
 }
