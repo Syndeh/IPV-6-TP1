@@ -5,10 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
+import org.uqbar.arkanoid.components.strategies.StaticBlockCollisionStrategy;
 
 import com.uqbar.vainilla.DeltaState;
-import com.uqbar.vainilla.GameComponent;
-import com.uqbar.vainilla.appearances.Appearance;
 import com.uqbar.vainilla.appearances.Rectangle;
 
 public class StaticBlock extends Block {
@@ -17,10 +16,11 @@ public class StaticBlock extends Block {
 	private int life;
 	private final Map<Integer,Color> mapColors;
 
-	public StaticBlock(int width, int height,Color color,int life) {
+	public StaticBlock(double width, double height,int life) {
 		this.life = life;
 		this.mapColors = this.generateMapsColors();
-		this.setAppearance(new Rectangle(color, width, height));
+		this.collisionStrategy = new StaticBlockCollisionStrategy();
+		this.setAppearance(new Rectangle(this.determineColor(), (int)width, (int)height));
 	}
 	
 	private Map<Integer, Color> generateMapsColors() {
@@ -50,36 +50,30 @@ public class StaticBlock extends Block {
 		return this.getX() + this.getAppearance().getWidth();
 	}
 	
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		super.destroy();
+	private Color determineColor() {
+		if(this.mapColors.containsKey(this.getLife())){
+			return this.mapColors.get(this.getLife());
+		}else{
+			return Color.BLACK;
+		}
+	}
+
+	public boolean atBottomBorder(int centerX, int centerY) {
+		return centerX > this.getX() && centerX < this.getAbsoluteRightSide() && centerY > this.getAbsoluteBottom(); 
+	}
+
+	public boolean atTopBorder(int centerX, int centerY) {
+		return centerX > this.getX() && centerX < this.getAbsoluteRightSide() && centerY < this.getY(); 
+	}
+
+	public boolean atLeftBorder(int centerX, int centerY) {
+		return centerY > this.getY() && centerY < this.getAbsoluteBottom() && centerX > this.getAbsoluteRightSide(); 
+	}
+
+	public boolean atRightBorder(int centerX, int centerY) {
+		return centerY > this.getY() && centerY < this.getAbsoluteBottom() && centerX < this.getX(); 
 	}
 	
-	@Override
-	public void alignLeftTo(double x) {
-		// TODO Auto-generated method stub
-		super.alignLeftTo(x);
-	}
-
-	@Override
-	public void alignRightTo(double x) {
-		// TODO Auto-generated method stub
-		super.alignRightTo(x);
-	}
-
-	@Override
-	public void alignCloserBoundTo(GameComponent<?> target) {
-		// TODO Auto-generated method stub
-		super.alignCloserBoundTo(target);
-	}
-
-	@Override
-	public void setAppearance(Appearance appearance) {
-		// TODO Auto-generated method stub
-		super.setAppearance(appearance);
-	}
-
 	public CollisionStrategy<StaticBlock> getCollisionStrategy() {
 		return this.collisionStrategy;
 	}
@@ -92,8 +86,11 @@ public class StaticBlock extends Block {
 	public void reduceLife() {
 		this.life--;
 		this.getScene().addPoint();
-		this.setAppearance(new Rectangle(this.determineColor(), (int)this.getAppearance().getWidth(), (int)this.getAppearance().getHeight()));
-		//TODO destroy
+		if(this.getLife()<0){
+			this.getScene().removeComponent(this);
+		}else{
+			this.setAppearance(new Rectangle(this.determineColor(), (int)this.getAppearance().getWidth(), (int)this.getAppearance().getHeight()));
+		}
 	}
 
 	public int getLife() {
@@ -102,13 +99,5 @@ public class StaticBlock extends Block {
 
 	public void setLife(int life) {
 		this.life = life;
-	}
-
-	private Color determineColor() {
-		if(this.getLife() <0 || this.getLife() > 5){
-			return Color.BLACK;
-		}else{
-			return this.mapColors.get(this.getLife());
-		}
 	}
 }

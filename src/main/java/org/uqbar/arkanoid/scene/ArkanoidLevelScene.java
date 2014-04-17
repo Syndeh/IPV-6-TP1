@@ -1,11 +1,16 @@
 package org.uqbar.arkanoid.scene;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.uqbar.arkanoid.components.Ball;
-import org.uqbar.arkanoid.components.Paddle;
 import org.uqbar.arkanoid.components.LivesCounter;
+import org.uqbar.arkanoid.components.Paddle;
 import org.uqbar.arkanoid.components.PointsCounter;
 import org.uqbar.arkanoid.components.SpeedMeter;
+import org.uqbar.arkanoid.components.StaticBlock;
 
+import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.GameScene;
 
 public abstract class ArkanoidLevelScene extends GameScene {
@@ -17,6 +22,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	
 	private Ball ball;
 	private Paddle paddleBlock;
+	private final List<StaticBlock> staticBlocks = new ArrayList<StaticBlock>();
 
 	
 	@Override
@@ -47,21 +53,21 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		this.setPointCounter(new PointsCounter());
 		this.getPointCounter().alignHorizontalCenterTo(this.getGame().getDisplayWidth()/2);
 		this.getPointCounter().setY(5);
-		this.addComponent(getPointCounter());
+		this.addComponent(this.getPointCounter());
 	}
 	
 	private void initializeLivesCounter() {
 		this.setLivesCounter(new LivesCounter());
 		this.getLivesCounter().setX(5);
 		this.getLivesCounter().setY(5);
-		this.addComponent(getLivesCounter());
+		this.addComponent(this.getLivesCounter());
 	}
 	
 	private void initializeSpeedMeter() {
 		this.setSpeedMeter(new SpeedMeter());
 		this.getSpeedMeter().setX(5);
 		this.getSpeedMeter().setY(this.getGame().getDisplayHeight() - 20);
-		this.addComponent(getSpeedMeter());
+		this.addComponent(this.getSpeedMeter());
 	}
 
 	public Ball getBall() {
@@ -74,7 +80,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	}
 
 	public Paddle getPaddleBlock() {
-		return paddleBlock;
+		return this.paddleBlock;
 	}
 
 	public void setPaddleBlock(Paddle paddleBlock) {
@@ -83,7 +89,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	}
 	
 	protected PointsCounter getPointCounter() {
-		return pointCounter;
+		return this.pointCounter;
 	}
 
 	protected void setPointCounter(PointsCounter pointCounter) {
@@ -99,7 +105,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	}
 
 	protected LivesCounter getLivesCounter() {
-		return livesCounter;
+		return this.livesCounter;
 	}
 
 	protected void setLivesCounter(LivesCounter livesCounter) {
@@ -124,11 +130,25 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	}
 
 	protected SpeedMeter getSpeedMeter() {
-		return speedMeter;
+		return this.speedMeter;
 	}
 
 	protected void setSpeedMeter(SpeedMeter speedMeter) {
 		this.speedMeter = speedMeter;
 	}
-	
+
+	protected void addBlock(StaticBlock block) {
+		this.staticBlocks.add(block);
+		this.addComponent(block);
+	}
+
+	@Override
+	public void removeComponent(GameComponent<?> component) {
+		this.staticBlocks.remove(component);
+		if(this.staticBlocks.isEmpty()) {
+			this.getGame().setCurrentScene(new ArkanoidGameOverScene());
+			this.resetComponents();
+		}
+		super.removeComponent(component);
+	}
 }

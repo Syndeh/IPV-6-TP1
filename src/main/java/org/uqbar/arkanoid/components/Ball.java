@@ -43,7 +43,6 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		}else if (this.atTopBorder()){
 			this.j = this.j * -1;
 			this.setY(0);
-			this.getScene().addPoint();
 		}else if (this.atLeftBorder()){
 			this.i = this.i * -1;
 			this.setX(0);
@@ -79,6 +78,21 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	public void goFaster(double x){
 		this.setSpeed(this.getSpeed()+x);
 	}
+	
+	public void setAngle(double pi) {
+		this.setI(Math.cos(Math.PI * pi));
+//		System.out.println(this.getI());
+		this.setJ(Math.sin(Math.PI * pi));
+//		System.out.println(this.getJ());
+	}
+	
+	public int getCenterX(){
+		return (int)this.getX() + this.getRadius();
+	}
+	
+	public int getCenterY(){
+		return (int)this.getY() + this.getRadius();
+	}
 
 	public double getI() {
 		return this.i;
@@ -110,12 +124,5 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
-	}
-
-	public void setAngle(double pi) {
-		this.setI(Math.cos(Math.PI * pi));
-//		System.out.println(this.getI());
-		this.setJ(Math.sin(Math.PI * pi));
-//		System.out.println(this.getJ());
 	}
 }

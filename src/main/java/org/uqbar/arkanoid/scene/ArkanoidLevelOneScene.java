@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.uqbar.arkanoid.components.Ball;
 import org.uqbar.arkanoid.components.Paddle;
+import org.uqbar.arkanoid.components.StaticBlock;
 
 public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 	
@@ -16,7 +17,7 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 		this.getBall().alignHorizontalCenterTo(this.getGame().getDisplayWidth()/2);
 		this.getBall().alignBottomTo(this.getPaddleBlock().getY()-100);
 		this.getBall().setSpeed(250);
-		this.getBall().setAngle(1.5);
+		this.getBall().setAngle(-2.5);
 		this.addComponent(this.getBall());
 	}
 	
@@ -47,6 +48,21 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 
 	@Override
 	protected void initializeBlocks() {
-		// TODO Auto-generated method stub
+		StaticBlock block = new StaticBlock(50, 20, 1);
+		block.setX(0);
+		block.setY(100);
+		
+		this.setRowOfBlocks(block);
+	}
+
+	private void setRowOfBlocks(StaticBlock block) {
+		this.addBlock(block);
+		for (int i = 0; i < 7; i++) {
+			StaticBlock newBlock = new StaticBlock(block.getAppearance().getWidth(), block.getAppearance().getHeight(), block.getLife());
+			newBlock.setX(block.getX() + block.getAppearance().getWidth());
+			newBlock.setY(block.getY());
+			this.addBlock(newBlock);
+			block = newBlock;
+		}
 	}
 }
