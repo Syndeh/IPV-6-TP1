@@ -27,6 +27,7 @@ public class Paddle extends Block {
 		this.getMovementStrategy().move(this, deltaState);
 
 		if(this.collideWith(this.getScene().getBall())){
+			
 			this.getCollisionStrategy().hit(this);
 		}
 	}

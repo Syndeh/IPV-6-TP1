@@ -3,12 +3,19 @@ package org.uqbar.arkanoid.components.strategies;
 import org.uqbar.arkanoid.components.Ball;
 import org.uqbar.arkanoid.components.Paddle;
 
+import com.uqbar.vainilla.sound.SoundBuilder;
+
 public class VariableAngleCollisionStrategy extends CollisionStrategy<Paddle> {
 
+	public VariableAngleCollisionStrategy()
+	{
+		this.setSound(new SoundBuilder().buildSound("/sounds/impact.wav"));
+	}
+	
 	@Override
 	public void hit(Paddle block) {
 		Ball ball = block.getScene().getBall();
-		
+		this.playSound();
 		double collisionPoint = this.obtainCollisionPoint(block,ball);
 		System.out.println("Punto Colision: " + collisionPoint);
 		double angle = this.obtainAngle(block,collisionPoint);
@@ -22,6 +29,8 @@ public class VariableAngleCollisionStrategy extends CollisionStrategy<Paddle> {
 		
 	}
 	
+
+
 public double obtainAngle(Paddle block, double x){
 		
 		double majorAngle = Math.PI/3;
