@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uqbar.arkanoid.components.Ball;
+import org.uqbar.arkanoid.components.LifeAward;
 import org.uqbar.arkanoid.components.LivesCounter;
 import org.uqbar.arkanoid.components.Paddle;
 import org.uqbar.arkanoid.components.PointsCounter;
@@ -23,6 +24,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	private Ball ball;
 	private Paddle paddleBlock;
 	private final List<StaticBlock> staticBlocks = new ArrayList<StaticBlock>();
+	private List<LifeAward> lifeAwards = new ArrayList<LifeAward>();
 
 	
 	@Override
@@ -125,8 +127,8 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	protected void resetComponents() {
 		this.getPaddleBlock().destroy();
 		this.getBall().destroy();
-		this.initializeBall();
 		this.initializePaddleBlock();
+		this.initializeBall();
 	}
 
 	protected SpeedMeter getSpeedMeter() {
@@ -141,6 +143,11 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		this.staticBlocks.add(block);
 		this.addComponent(block);
 	}
+	
+	public void addLifeAward(LifeAward lifeAward){
+		this.getLifeAwards().add(lifeAward);
+		this.addComponent(lifeAward);
+	}
 
 	@Override
 	public void removeComponent(GameComponent<?> component) {
@@ -148,8 +155,16 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		component.destroy();
 		if(this.staticBlocks.isEmpty()) {
 			this.resetComponents();
-			this.getGame().setCurrentScene(new ArkanoidGameOverScene());
+			this.initializeBlocks();
 		}
 		super.removeComponent(component);
+	}
+
+	private List<LifeAward> getLifeAwards() {
+		return lifeAwards;
+	}
+
+	private void setLifeAwards(List<LifeAward> lifeAwards) {
+		this.lifeAwards = lifeAwards;
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.Color;
 import org.uqbar.arkanoid.components.Ball;
 import org.uqbar.arkanoid.components.Paddle;
 import org.uqbar.arkanoid.components.StaticBlock;
+import org.uqbar.arkanoid.components.strategies.AwardStaticBlockCollisionStrategy;
 
 public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 	
@@ -60,6 +61,10 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 			StaticBlock newBlock = new StaticBlock(block.getAppearance().getWidth(), block.getAppearance().getHeight(), block.getLife(),block.getX(),block.getY());
 			newBlock.setX(block.getX() + block.getAppearance().getWidth());
 			newBlock.setY(block.getY());
+			if(i==1)
+			{
+				newBlock.setCollisionStrategy(new AwardStaticBlockCollisionStrategy());
+			}
 			this.addBlock(newBlock);
 			block = newBlock;
 		}
