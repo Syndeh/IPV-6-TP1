@@ -56,7 +56,7 @@ public class StaticBlock extends Block {
 		if(this.mapColors.containsKey(this.getLife())){
 			return this.mapColors.get(this.getLife());
 		}else{
-			return Color.BLACK;
+			return Color.WHITE;
 		}
 	}
 
