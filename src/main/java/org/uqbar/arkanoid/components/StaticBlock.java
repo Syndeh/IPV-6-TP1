@@ -87,11 +87,11 @@ public class StaticBlock extends Block {
 
 	public void reduceLife() {
 		this.life--;
-		this.getScene().addPoint();
 		if(this.getLife() == 0){
 			this.getScene().removeComponent(this);
-		}else{
+		}else if (this.getLife() > 0 ){
 			this.setAppearance(new RectangleWithBorder(this.determineColor(), (int)this.getAppearance().getWidth(), (int)this.getAppearance().getHeight()));
+			this.getScene().addPoint();                   
 		}
 	}
 
