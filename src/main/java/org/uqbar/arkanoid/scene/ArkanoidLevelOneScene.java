@@ -49,17 +49,15 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 
 	@Override
 	protected void initializeBlocks() {
-		StaticBlock block = new StaticBlock(50, 20, 1);
-		block.setX(0);
-		block.setY(100);
-		
-		this.setRowOfBlocks(block);
+		this.setRowOfBlocks(new StaticBlock(50, 20, 4, 0, 100));
+		this.setRowOfBlocks(new StaticBlock(50, 20, 3, 0, 150));
+		this.setRowOfBlocks(new StaticBlock(50, 20, 2, 0, 200));
 	}
 
 	private void setRowOfBlocks(StaticBlock block) {
 		this.addBlock(block);
 		for (int i = 0; i < 7; i++) {
-			StaticBlock newBlock = new StaticBlock(block.getAppearance().getWidth(), block.getAppearance().getHeight(), block.getLife());
+			StaticBlock newBlock = new StaticBlock(block.getAppearance().getWidth(), block.getAppearance().getHeight(), block.getLife(),block.getX(),block.getY());
 			newBlock.setX(block.getX() + block.getAppearance().getWidth());
 			newBlock.setY(block.getY());
 			this.addBlock(newBlock);

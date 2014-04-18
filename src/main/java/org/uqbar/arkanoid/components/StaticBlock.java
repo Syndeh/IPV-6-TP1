@@ -9,7 +9,6 @@ import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
 import org.uqbar.arkanoid.components.strategies.StaticBlockCollisionStrategy;
 
 import com.uqbar.vainilla.DeltaState;
-import com.uqbar.vainilla.appearances.Rectangle;
 
 public class StaticBlock extends Block {
 	
@@ -17,10 +16,12 @@ public class StaticBlock extends Block {
 	private int life;
 	private final Map<Integer,Color> mapColors;
 
-	public StaticBlock(double width, double height,int life) {
+	public StaticBlock(double width, double height,int life, double x, double y) {
 		this.life = life;
 		this.mapColors = this.generateMapsColors();
 		this.collisionStrategy = new StaticBlockCollisionStrategy();
+		this.setX(x);
+		this.setY(y);
 		this.setAppearance(new RectangleWithBorder(this.determineColor(), (int)width, (int)height));
 	}
 	
@@ -87,7 +88,7 @@ public class StaticBlock extends Block {
 	public void reduceLife() {
 		this.life--;
 		this.getScene().addPoint();
-		if(this.getLife()<0){
+		if(this.getLife() == 0){
 			this.getScene().removeComponent(this);
 		}else{
 			this.setAppearance(new RectangleWithBorder(this.determineColor(), (int)this.getAppearance().getWidth(), (int)this.getAppearance().getHeight()));

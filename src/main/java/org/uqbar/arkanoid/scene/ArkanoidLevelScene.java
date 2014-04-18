@@ -145,9 +145,10 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	@Override
 	public void removeComponent(GameComponent<?> component) {
 		this.staticBlocks.remove(component);
+		component.destroy();
 		if(this.staticBlocks.isEmpty()) {
-			this.getGame().setCurrentScene(new ArkanoidGameOverScene());
 			this.resetComponents();
+			this.getGame().setCurrentScene(new ArkanoidGameOverScene());
 		}
 		super.removeComponent(component);
 	}
