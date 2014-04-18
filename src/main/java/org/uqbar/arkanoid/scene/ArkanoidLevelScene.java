@@ -125,8 +125,9 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	protected void resetComponents() {
 		this.getPaddleBlock().destroy();
 		this.getBall().destroy();
-		this.initializeBall();
 		this.initializePaddleBlock();
+		this.initializeBall();
+		
 	}
 
 	protected SpeedMeter getSpeedMeter() {
@@ -146,8 +147,8 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	public void removeComponent(GameComponent<?> component) {
 		this.staticBlocks.remove(component);
 		if(this.staticBlocks.isEmpty()) {
-			this.getGame().setCurrentScene(new ArkanoidGameOverScene());
 			this.resetComponents();
+			this.initializeBlocks();
 		}
 		super.removeComponent(component);
 	}
