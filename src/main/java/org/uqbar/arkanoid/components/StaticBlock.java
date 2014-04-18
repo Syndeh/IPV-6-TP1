@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.uqbar.arkanoid.appearences.RectangleWithBorder;
 import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
 import org.uqbar.arkanoid.components.strategies.StaticBlockCollisionStrategy;
 
@@ -20,7 +21,7 @@ public class StaticBlock extends Block {
 		this.life = life;
 		this.mapColors = this.generateMapsColors();
 		this.collisionStrategy = new StaticBlockCollisionStrategy();
-		this.setAppearance(new Rectangle(this.determineColor(), (int)width, (int)height));
+		this.setAppearance(new RectangleWithBorder(this.determineColor(), (int)width, (int)height));
 	}
 	
 	private Map<Integer, Color> generateMapsColors() {
@@ -89,7 +90,7 @@ public class StaticBlock extends Block {
 		if(this.getLife()<0){
 			this.getScene().removeComponent(this);
 		}else{
-			this.setAppearance(new Rectangle(this.determineColor(), (int)this.getAppearance().getWidth(), (int)this.getAppearance().getHeight()));
+			this.setAppearance(new RectangleWithBorder(this.determineColor(), (int)this.getAppearance().getWidth(), (int)this.getAppearance().getHeight()));
 		}
 	}
 

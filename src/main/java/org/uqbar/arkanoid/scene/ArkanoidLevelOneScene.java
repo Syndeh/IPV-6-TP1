@@ -15,7 +15,7 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 	protected void initializeBall() {
 		this.setBall(new Ball(Color.GREEN));
 		this.getBall().alignHorizontalCenterTo(this.getGame().getDisplayWidth()/2);
-		this.getBall().alignBottomTo(this.getPaddleBlock().getY()-40);
+		this.getBall().alignBottomTo(this.getPaddleBlock().getY()-41);
 		this.getBall().setSpeed(250);
 		this.getBall().setAngle(-2.5);
 		this.getBall().stop();
