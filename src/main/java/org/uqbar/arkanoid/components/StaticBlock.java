@@ -9,7 +9,6 @@ import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
 import org.uqbar.arkanoid.components.strategies.StaticBlockCollisionStrategy;
 
 import com.uqbar.vainilla.DeltaState;
-import com.uqbar.vainilla.appearances.Rectangle;
 
 public class StaticBlock extends Block {
 	
