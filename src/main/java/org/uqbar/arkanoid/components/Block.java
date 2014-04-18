@@ -18,4 +18,9 @@ public abstract class Block extends GameComponent<ArkanoidLevelScene> {
 											this.getAppearance().getWidth(),
 											this.getAppearance().getHeight());
 	}
+	
+	public double obtainXCenter()
+	{
+		return this.getX() + this.getAppearance().getWidth() / 2;
+	}
 }

@@ -14,6 +14,7 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	private int radius = 10;
 	private double speed = 150;
 	private double i, j;
+	private boolean isStopped = false;
 	
 	public Ball(Color color) {
 		this.setAppearance(new Circle(color,2*this.radius));
@@ -26,10 +27,13 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	
 	@Override
 	public void update(DeltaState deltaState) {
-		double advanced = this.speed * deltaState.getDelta();
-
-		this.move(this.i * advanced, this.j * advanced);
-		this.checkRebound();
+		if(!this.isStopped())
+		{
+			double advanced = this.speed * deltaState.getDelta();
+	
+			this.move(this.i * advanced, this.j * advanced);
+			this.checkRebound();
+		}
 		super.update(deltaState);
 	}
 	
@@ -79,6 +83,14 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		this.setSpeed(this.getSpeed()+x);
 	}
 	
+	public void stop(){
+		this.setStopped(true);
+	}
+	
+	public void start(){
+		this.setStopped(false);
+	}
+	
 	public void setAngle(double pi) {
 		this.setI(Math.cos(Math.PI * pi));
 //		System.out.println(this.getI());
@@ -124,5 +136,13 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public boolean isStopped() {
+		return isStopped;
+	}
+
+	public void setStopped(boolean isStopped) {
+		this.isStopped = isStopped;
 	}
 }
