@@ -6,6 +6,7 @@ import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
 import org.uqbar.arkanoid.components.strategies.LateralMovementStrategy;
 import org.uqbar.arkanoid.components.strategies.MovementStrategy;
 import org.uqbar.arkanoid.components.strategies.VariableAngleCollisionStrategy;
+import org.uqbar.arkanoid.utils.TetrisSpriteSheetHelper;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.appearances.Rectangle;
@@ -18,6 +19,7 @@ public class Paddle extends Block {
 	
 	public Paddle(int width, int height){
 		this.setAppearance(new Rectangle(Color.RED, width, height));
+		this.setAppearance(TetrisSpriteSheetHelper.getLargeBlock(Color.RED).scaleTo(width, height));
 		this.movementStrategy = new LateralMovementStrategy();
 		this.collisionStrategy = new VariableAngleCollisionStrategy();
 	}

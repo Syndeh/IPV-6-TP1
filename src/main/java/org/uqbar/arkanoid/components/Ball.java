@@ -8,6 +8,7 @@ import org.uqbar.arkanoid.scene.ArkanoidLevelScene;
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Circle;
+import com.uqbar.vainilla.appearances.Sprite;
 
 public class Ball extends GameComponent<ArkanoidLevelScene>{
 	
@@ -18,9 +19,9 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	private double rotation = 0;
 	
 	public Ball(Color color) {
-		this.setAppearance(new Circle(color,2*this.radius));
+//		this.setAppearance(new Circle(color,2*this.radius));
 		
-//		super(Sprite.fromImage("images/eclipse_ball.png").scaleTo(2* 10, 2*10 ),0,0);
+		super(Sprite.fromImage("images/eclipse_ball.png").scaleTo(2* 10, 2*10 ),0,0);
 	}
 	
 	@Override
