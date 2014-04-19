@@ -17,19 +17,19 @@ public class StaticBlockCollisionStrategy extends CollisionStrategy<StaticBlock>
 		Ball ball = block.getScene().getBall();
 		this.playSound();
 		if(block.atBottomBorder(ball.getCenterX(),ball.getCenterY())){
-			ball.setJ(ball.getJ() * -1);
+			ball.inverseHorizontalDirection();
 			ball.setY(block.getAbsoluteBottom());
 		}else if (block.atTopBorder(ball.getCenterX(),ball.getCenterY())){
-			ball.setJ(ball.getJ() * -1);
+			ball.inverseHorizontalDirection();
 			ball.setY(block.getY() - ball.getRadius() * 2);
 		}else if (block.atLeftBorder(ball.getCenterX(),ball.getCenterY())){
-			ball.setI(ball.getI() * -1);
+			ball.inverseVerticalDirection();
 			ball.setX(block.getX() - ball.getRadius() * 2);
 		}else if (block.atRightBorder(ball.getCenterX(),ball.getCenterY())){
-			ball.setI(ball.getI() * -1);
+			ball.inverseVerticalDirection();
 			ball.setX(block.getAbsoluteRightSide());
 		}else{
-			ball.setJ(ball.getJ() * -1);
+			ball.inverseVerticalDirection();
 			ball.setY(block.getAbsoluteBottom());
 		}
 		block.reduceLife();

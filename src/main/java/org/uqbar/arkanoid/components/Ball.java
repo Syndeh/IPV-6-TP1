@@ -9,6 +9,7 @@ import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Circle;
 import com.uqbar.vainilla.appearances.Sprite;
+import com.uqbar.vainilla.sound.SoundBuilder;
 
 public class Ball extends GameComponent<ArkanoidLevelScene>{
 	
@@ -53,13 +54,20 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		}else if (this.atTopBorder()){
 			this.j = this.j * -1;
 			this.setY(0);
+			playReboundSound();
 		}else if (this.atLeftBorder()){
 			this.i = this.i * -1;
 			this.setX(0);
+			playReboundSound();
 		}else if (this.atRightBorder()){
 			this.i = this.i * -1;
+			playReboundSound();
 			this.setX(this.getGame().getDisplayWidth() - this.radius * 2);
 		}
+	}
+
+	private void playReboundSound() {
+		new SoundBuilder().buildSound("/sounds/blop.wav").play(1);
 	}
 
 	private boolean atBottomBorder() {
@@ -97,11 +105,6 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		this.setStopped(false);
 	}
 	
-	public void setAngle(double pi) {
-		this.setI(Math.cos(Math.PI * pi));
-		this.setJ(Math.sin(Math.PI * pi));
-	}
-	
 	public int getCenterX(){
 		return (int)this.getX() + this.getRadius();
 	}
@@ -110,6 +113,11 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		return (int)this.getY() + this.getRadius();
 	}
 
+	public void setAngle(double pi) {
+		this.setI(Math.cos(Math.PI * pi));
+		this.setJ(Math.sin(Math.PI * pi));
+	}
+	
 	public double getI() {
 		return this.i;
 	}
@@ -124,6 +132,14 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 
 	public void setJ(double j) {
 		this.j = j;
+	}
+	
+	public void inverseVerticalDirection() {
+		this.setJ(this.getJ() * -1);
+	}
+	
+	public void inverseHorizontalDirection() {
+		this.setJ(this.getJ() * -1);
 	}
 
 	public double getSpeed() {

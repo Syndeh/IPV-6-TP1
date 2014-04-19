@@ -4,13 +4,11 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.uqbar.arkanoid.appearences.RectangleWithBorder;
 import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
 import org.uqbar.arkanoid.components.strategies.StaticBlockCollisionStrategy;
 import org.uqbar.arkanoid.utils.TetrisSpriteSheetHelper;
 
 import com.uqbar.vainilla.DeltaState;
-import com.uqbar.vainilla.appearances.Sprite;
 
 public class StaticBlock extends Block {
 	
@@ -31,7 +29,6 @@ public class StaticBlock extends Block {
 	}
 	
 	private void determineAppearance() {
-		//this.setAppearance(new RectangleWithBorder(this.determineColor(), (int)this.getWidth(), (int)this.getHeight()));
 		this.setAppearance(TetrisSpriteSheetHelper.getLargeBlock(this.determineColor()).scaleTo(this.getWidth(), this.getHeight()));
 	}
 

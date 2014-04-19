@@ -14,12 +14,16 @@ public class LivesCounter extends GameComponent<GameScene> {
 	
 	public LivesCounter() {
 		this.lives = 3;
+		determineAppearence();
+	}
+
+	private void determineAppearence() {
 		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 20), Color.BLACK, "Lives: " + this.getLives()));
 	}
 
 	@Override
 	public void update(DeltaState deltaState) {
-		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 20), Color.BLACK, "Lives: " + this.getLives()));
+		determineAppearence();
 		super.update(deltaState);
 	}
 
