@@ -9,6 +9,7 @@ import org.uqbar.arkanoid.components.strategies.StaticBlockCollisionStrategy;
 import org.uqbar.arkanoid.utils.TetrisSpriteSheetHelper;
 
 import com.uqbar.vainilla.DeltaState;
+import com.uqbar.vainilla.sound.SoundBuilder;
 
 public class StaticBlock extends Block {
 	
@@ -115,7 +116,8 @@ public class StaticBlock extends Block {
 	public void reduceLife() {
 		this.life--;
 		if(this.getLife() == 0){
-			this.getScene().removeComponent(this);
+			new SoundBuilder().buildSound("/sounds/break_block.wav").play(1);
+			this.getScene().removeBlock(this);
 		}else if (this.getLife() > 0 ){
 			this.determineAppearance();
 			this.getScene().addPoint();                   

@@ -24,7 +24,7 @@ public class PointsCounter extends GameComponent<GameScene> {
 	}
 
 	private void determineAppearance() {
-		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 20), Color.BLACK, "Puntos: " + this.getPoints()));
+		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 20), Color.WHITE, "Puntos: " + this.getPoints()));
 	}
 
 	public int getPoints() {

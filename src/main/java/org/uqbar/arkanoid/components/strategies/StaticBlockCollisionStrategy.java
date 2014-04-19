@@ -9,7 +9,7 @@ public class StaticBlockCollisionStrategy extends CollisionStrategy<StaticBlock>
 
 	
 	public StaticBlockCollisionStrategy(){
-		this.setSound(new SoundBuilder().buildSound("/sounds/blop.wav"));
+		this.setSound(new SoundBuilder().buildSound("/sounds/bump.wav"));
 	}
 	
 	@Override

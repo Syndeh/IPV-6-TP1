@@ -6,6 +6,7 @@ import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Sprite;
 import com.uqbar.vainilla.colissions.CollisionDetector;
+import com.uqbar.vainilla.sound.SoundBuilder;
 
 public class LifeAward extends GameComponent<ArkanoidLevelScene> {
 
@@ -22,6 +23,7 @@ public class LifeAward extends GameComponent<ArkanoidLevelScene> {
 		
 		if(this.collideWithPaddle())
 		{
+			new SoundBuilder().buildSound("/sounds/life_up.wav").play(1);
 			this.getScene().getLivesCounter().addLife();
 			this.getScene().removeComponent(this);
 		}else{

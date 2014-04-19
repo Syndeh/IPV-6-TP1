@@ -20,8 +20,6 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	private double rotation = 0;
 	
 	public Ball(Color color) {
-//		this.setAppearance(new Circle(color,2*this.radius));
-		
 		super(Sprite.fromImage("images/eclipse_ball.png").scaleTo(2* 10, 2*10 ),0,0);
 	}
 	
@@ -38,7 +36,7 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 			this.rotation += advanced / 100;
 			
 			this.move(this.i * advanced, this.j * advanced);
-//			this.setAppearance(Sprite.fromImage("images/eclipse_ball.png").scaleTo(2* this.radius, 2*this.radius ).rotate(this.rotation ));
+			//this.setAppearance(Sprite.fromImage("images/eclipse_ball.png").scaleTo(2* this.radius, 2*this.radius ).rotate(this.rotation ));
 			this.checkRebound();
 		}
 		

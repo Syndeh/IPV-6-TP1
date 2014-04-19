@@ -1,6 +1,7 @@
 package org.uqbar.arkanoid.scene;
 
 import java.awt.Color;
+import java.util.Random;
 
 import org.uqbar.arkanoid.components.Ball;
 import org.uqbar.arkanoid.components.Paddle;
@@ -8,6 +9,12 @@ import org.uqbar.arkanoid.components.StaticBlock;
 import org.uqbar.arkanoid.components.strategies.AwardStaticBlockCollisionStrategy;
 
 public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
+	
+	@Override
+	protected void initializeComponents() {
+		this.addComponent(new StaticBlock(400, 30, -1, 0, 0));
+		super.initializeComponents();
+	}
 	
 	/**
 	 * Color: Green
@@ -50,20 +57,19 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 
 	@Override
 	protected void initializeBlocks() {
-		this.addBlock(new StaticBlock(400, 30, -1, 0, 0));
 		this.setRowOfBlocks(new StaticBlock(50, 20, 4, 0, 100));
 		this.setRowOfBlocks(new StaticBlock(50, 20, 3, 0, 150));
 		this.setRowOfBlocks(new StaticBlock(50, 20, 2, 0, 200));
-//		this.addBlock(new StaticBlock(10, 400, 5, 390, 30));
 	}
 
 	private void setRowOfBlocks(StaticBlock block) {
 		this.addBlock(block);
+		int priceCol = (int) (Math.random() * 7);
 		for (int i = 0; i < 7; i++) {
 			StaticBlock newBlock = new StaticBlock(block.getAppearance().getWidth(), block.getAppearance().getHeight(), block.getLife(),block.getX(),block.getY());
 			newBlock.setX(block.getX() + block.getAppearance().getWidth());
 			newBlock.setY(block.getY());
-			if(i==1)
+			if(i==priceCol)
 			{
 				newBlock.setCollisionStrategy(new AwardStaticBlockCollisionStrategy());
 			}

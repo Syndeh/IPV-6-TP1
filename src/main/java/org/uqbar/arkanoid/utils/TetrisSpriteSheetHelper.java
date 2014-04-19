@@ -13,11 +13,11 @@ public class TetrisSpriteSheetHelper {
 	
 	
 	public static Sprite getLargeBlock() {
-		return getSpriteFromImage().crop(0, 30, 32, 9 );
+		return getSpriteFromImage().crop(0, 30, 32, 8 );
 	}
 	
 	public static Sprite getLargeBlock(Color color) {
-		return getSpriteFromImage().crop(getColorInitialPosition(color), 30, 32, 9 );
+		return getSpriteFromImage().crop(getColorInitialPosition(color), 30, 32, 8 );
 	}
 	
 	private static Sprite getSpriteFromImage() {

@@ -1,5 +1,6 @@
 package org.uqbar.arkanoid.scene;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.uqbar.arkanoid.components.StaticBlock;
 
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.GameScene;
+import com.uqbar.vainilla.appearances.Rectangle;
 
 public abstract class ArkanoidLevelScene extends GameScene {
 
@@ -20,12 +22,13 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	private LivesCounter livesCounter;
 	private PointsCounter pointCounter;
 	private SpeedMeter speedMeter;
-	
+		
 	private Ball ball;
 	private Paddle paddleBlock;
-	private final List<StaticBlock> staticBlocks = new ArrayList<StaticBlock>();
+	
 	private List<LifeAward> lifeAwards = new ArrayList<LifeAward>();
-
+	
+	private final List<StaticBlock> blocks = new ArrayList<StaticBlock>();
 	
 	@Override
 	public void onSetAsCurrent() {
@@ -37,12 +40,18 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	 * Ventana de ejecución para la inicialización de los componentes.
 	 */
 	protected void initializeComponents() {
+		this.initializeBackground();
 		this.initializePaddleBlock();
 		this.initializeBall();
 		this.initializeBlocks();
 		this.initializePointsCounter();
 		this.initializeLivesCounter();
 		this.initializeSpeedMeter();
+	}
+
+	private void initializeBackground() {
+		GameComponent<GameScene> background = new GameComponent<GameScene>(new Rectangle(Color.BLACK, this.getGame().getDisplayWidth(), this.getGame().getDisplayHeight()),0 ,0);
+		this.addComponent(background);
 	}
 
 	protected abstract void initializePaddleBlock();
@@ -145,24 +154,20 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	}
 
 	protected void addBlock(StaticBlock block) {
-		this.staticBlocks.add(block);
+		this.blocks.add(block);
 		this.addComponent(block);
+	}
+	
+	public void removeBlock(StaticBlock block) {
+		this.blocks.remove(block);
+		block.destroy();
+		super.removeComponent(block);
+		this.checkLevelPassed();
 	}
 	
 	public void addLifeAward(LifeAward lifeAward){
 		this.getLifeAwards().add(lifeAward);
 		this.addComponent(lifeAward);
-	}
-
-	@Override
-	public void removeComponent(GameComponent<?> component) {
-		this.staticBlocks.remove(component);
-		component.destroy();
-		if(this.staticBlocks.isEmpty()) {
-			this.resetComponents();
-			this.initializeBlocks();
-		}
-		super.removeComponent(component);
 	}
 
 	protected List<LifeAward> getLifeAwards() {
@@ -171,5 +176,13 @@ public abstract class ArkanoidLevelScene extends GameScene {
 
 	protected void setLifeAwards(List<LifeAward> lifeAwards) {
 		this.lifeAwards = lifeAwards;
+	}
+	
+	public void checkLevelPassed() {
+		if( blocks.isEmpty() ) {
+			// Ganaste!
+			this.getBall().destroy();
+			this.getGame().setCurrentScene(new ArkanoidWinnerScene());
+		}
 	}
 }
