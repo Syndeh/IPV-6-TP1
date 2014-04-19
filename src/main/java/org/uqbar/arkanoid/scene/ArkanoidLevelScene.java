@@ -106,11 +106,11 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		this.getPointCounter().addPoints(points);
 	}
 
-	protected LivesCounter getLivesCounter() {
+	public LivesCounter getLivesCounter() {
 		return this.livesCounter;
 	}
 
-	protected void setLivesCounter(LivesCounter livesCounter) {
+	public void setLivesCounter(LivesCounter livesCounter) {
 		this.livesCounter = livesCounter;
 	}
 	
@@ -127,6 +127,11 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	protected void resetComponents() {
 		this.getPaddleBlock().destroy();
 		this.getBall().destroy();
+		
+		for (LifeAward lifeAward : this.getLifeAwards()) {
+			lifeAward.destroy();
+		}
+		
 		this.initializePaddleBlock();
 		this.initializeBall();
 	}

@@ -93,9 +93,7 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	
 	public void setAngle(double pi) {
 		this.setI(Math.cos(Math.PI * pi));
-//		System.out.println(this.getI());
 		this.setJ(Math.sin(Math.PI * pi));
-//		System.out.println(this.getJ());
 	}
 	
 	public int getCenterX(){
