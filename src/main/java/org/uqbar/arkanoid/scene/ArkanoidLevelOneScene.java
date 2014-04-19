@@ -35,7 +35,7 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 	protected void initializePaddleBlock() {
 		
 		int paddleWidth = this.getGame().getDisplayWidth()/4;
-		int paddleHeight = 10;
+		int paddleHeight = 20;
 		int initialX = this.getGame().getDisplayWidth() / 2 - paddleWidth / 2;
 		int initialY = this.getGame().getDisplayHeight() - paddleHeight - 20;
 		

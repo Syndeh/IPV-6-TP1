@@ -7,6 +7,9 @@ import com.uqbar.vainilla.colissions.CollisionDetector;
 
 public abstract class Block extends GameComponent<ArkanoidLevelScene> {
 
+	private double width;
+	private double height;
+	
 	protected boolean collideWith(Ball ball) {
 		return CollisionDetector
 				.INSTANCE
@@ -22,5 +25,21 @@ public abstract class Block extends GameComponent<ArkanoidLevelScene> {
 	public double obtainXCenter()
 	{
 		return this.getX() + this.getAppearance().getWidth() / 2;
+	}
+	
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
 	}
 }
