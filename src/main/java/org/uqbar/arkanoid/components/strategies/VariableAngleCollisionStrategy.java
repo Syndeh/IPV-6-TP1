@@ -17,10 +17,9 @@ public class VariableAngleCollisionStrategy extends CollisionStrategy<Paddle> {
 		Ball ball = block.getScene().getBall();
 		this.playSound();
 		double collisionPoint = this.obtainCollisionPoint(block,ball);
-		System.out.println("Punto Colision: " + collisionPoint);
 		double angle = this.obtainAngle(block,collisionPoint);
 		double x = Math.sin(angle);
-		System.out.println("Sin x:" + x);
+
 		double y = Math.cos(angle);
 		double ySign = Math.signum(y);
 		ball.setI(x);

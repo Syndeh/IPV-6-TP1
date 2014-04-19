@@ -160,11 +160,11 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		super.removeComponent(component);
 	}
 
-	private List<LifeAward> getLifeAwards() {
+	protected List<LifeAward> getLifeAwards() {
 		return lifeAwards;
 	}
 
-	private void setLifeAwards(List<LifeAward> lifeAwards) {
+	protected void setLifeAwards(List<LifeAward> lifeAwards) {
 		this.lifeAwards = lifeAwards;
 	}
 }
