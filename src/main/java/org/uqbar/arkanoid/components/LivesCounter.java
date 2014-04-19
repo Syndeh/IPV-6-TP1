@@ -27,6 +27,10 @@ public class LivesCounter extends GameComponent<GameScene> {
 		return lives;
 	}
 	
+	public void addLife(){
+		this.lives++;
+	}
+	
 	public void removeLife() {
 		this.lives--;
 	}
