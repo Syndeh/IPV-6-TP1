@@ -19,19 +19,23 @@ public class StaticBlockCollisionStrategy extends CollisionStrategy<StaticBlock>
 		if(block.atBottomBorder(ball.getCenterX(),ball.getCenterY())){
 			ball.inverseHorizontalDirection();
 			ball.setY(block.getAbsoluteBottom());
+			block.reduceLife();
 		}else if (block.atTopBorder(ball.getCenterX(),ball.getCenterY())){
 			ball.inverseHorizontalDirection();
 			ball.setY(block.getY() - ball.getRadius() * 2);
+			block.reduceLife();
 		}else if (block.atLeftBorder(ball.getCenterX(),ball.getCenterY())){
 			ball.inverseVerticalDirection();
 			ball.setX(block.getX() - ball.getRadius() * 2);
+			block.reduceLife();
 		}else if (block.atRightBorder(ball.getCenterX(),ball.getCenterY())){
 			ball.inverseVerticalDirection();
 			ball.setX(block.getAbsoluteRightSide());
-		}else{
-			ball.inverseVerticalDirection();
-			ball.setY(block.getAbsoluteBottom());
+			block.reduceLife();
+//		}else{
+//			ball.setJ(ball.getJ() * -1);
+//			ball.setY(block.getAbsoluteBottom());
+//			block.reduceLife();
 		}
-		block.reduceLife();
 	}
 }
