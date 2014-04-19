@@ -3,7 +3,6 @@ package org.uqbar.arkanoid.components;
 import java.awt.Color;
 import java.awt.Font;
 
-import org.uqbar.arkanoid.scene.ArkanoidGameOverScene;
 import org.uqbar.arkanoid.scene.ArkanoidLevelOneScene;
 
 import com.uqbar.vainilla.DeltaState;
@@ -15,7 +14,7 @@ import com.uqbar.vainilla.events.constants.Key;
 public class ScreenMessage extends GameComponent<GameScene> {
 	
 	private String message;
-	private int fontSize = 30;
+	private final int fontSize = 30;
 	
 	public ScreenMessage(String message) {
 		this.setMessage(message);
@@ -37,16 +36,14 @@ public class ScreenMessage extends GameComponent<GameScene> {
 	}
 
 	private void determineAppearance() {
-		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, fontSize ), Color.BLACK,this.getMessage(), "(ENTER para continuar)"));
+		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, this.fontSize ), Color.BLACK,this.getMessage(), "(ENTER para continuar)"));
 	}
 
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
 }

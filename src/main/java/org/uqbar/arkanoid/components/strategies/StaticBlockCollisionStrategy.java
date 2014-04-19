@@ -32,10 +32,6 @@ public class StaticBlockCollisionStrategy extends CollisionStrategy<StaticBlock>
 			ball.inverseVerticalDirection();
 			ball.setX(block.getAbsoluteRightSide());
 			block.reduceLife();
-//		}else{
-//			ball.setJ(ball.getJ() * -1);
-//			ball.setY(block.getAbsoluteBottom());
-//			block.reduceLife();
 		}
 	}
 }

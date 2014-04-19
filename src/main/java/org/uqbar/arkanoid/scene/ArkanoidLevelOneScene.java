@@ -1,7 +1,6 @@
 package org.uqbar.arkanoid.scene;
 
 import java.awt.Color;
-import java.util.Random;
 
 import org.uqbar.arkanoid.components.Ball;
 import org.uqbar.arkanoid.components.Paddle;
@@ -57,9 +56,9 @@ public class ArkanoidLevelOneScene extends ArkanoidLevelScene {
 
 	@Override
 	protected void initializeBlocks() {
-		this.setRowOfBlocks(new StaticBlock(50, 20, 4, 0, 100));
-		this.setRowOfBlocks(new StaticBlock(50, 20, 3, 0, 150));
-		this.setRowOfBlocks(new StaticBlock(50, 20, 2, 0, 200));
+		this.setRowOfBlocks(new StaticBlock(50, 30, 4, 0, 100));
+		this.setRowOfBlocks(new StaticBlock(50, 30, 3, 0, 150));
+		this.setRowOfBlocks(new StaticBlock(50, 30, 2, 0, 200));
 	}
 
 	private void setRowOfBlocks(StaticBlock block) {

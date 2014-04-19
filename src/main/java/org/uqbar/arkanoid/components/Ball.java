@@ -54,14 +54,14 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		}else if (this.atTopBorder()){
 			this.j = this.j * -1;
 			this.setY(0);
-			playReboundSound();
+			this.playReboundSound();
 		}else if (this.atLeftBorder()){
 			this.i = this.i * -1;
 			this.setX(0);
-			playReboundSound();
+			this.playReboundSound();
 		}else if (this.atRightBorder()){
 			this.i = this.i * -1;
-			playReboundSound();
+			this.playReboundSound();
 			this.setX(this.getGame().getDisplayWidth() - this.radius * 2);
 		}
 	}
@@ -135,7 +135,7 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	}
 	
 	public void inverseVerticalDirection() {
-		this.setJ(this.getJ() * -1);
+		this.setI(this.getI() * -1);
 	}
 	
 	public void inverseHorizontalDirection() {

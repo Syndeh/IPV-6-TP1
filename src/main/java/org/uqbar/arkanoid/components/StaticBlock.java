@@ -71,37 +71,19 @@ public class StaticBlock extends Block {
 	}
 
 	public boolean atBottomBorder(int centerX, int centerY) {
-		return 
-//				centerX > this.getX() && 
-//				centerX < this.getAbsoluteRightSide() && 
-				centerY > this.getAbsoluteBottom(); 
+		return centerY > this.getAbsoluteBottom(); 
 	}
 
 	public boolean atTopBorder(int centerX, int centerY) {
-		return 
-//				centerX > this.getX() &&
-//				centerX < this.getAbsoluteRightSide() &&
-				centerY < this.getY(); 
+		return centerY < this.getY(); 
 	}
 
 	public boolean atLeftBorder(int centerX, int centerY) {
-		return 
-				centerY > this.getY() && 
-				centerY < this.getAbsoluteBottom() && 
-				centerX < this.getX();
-//				&&
-//				!this.atBottomBorder(centerX, centerY) &&
-//				!this.atTopBorder(centerX, centerY);
+		return centerY > this.getY() &&	centerY < this.getAbsoluteBottom() && centerX < this.getX();
 	}
 
 	public boolean atRightBorder(int centerX, int centerY) {
-		return 
-				centerY > this.getY() && 
-				centerY < this.getAbsoluteBottom() && 
-				centerX > this.getAbsoluteRightSide();
-//				&&
-//				!this.atBottomBorder(centerX, centerY) &&
-//				!this.atTopBorder(centerX, centerY); 
+		return centerY > this.getY() &&	centerY < this.getAbsoluteBottom() && centerX > this.getAbsoluteRightSide();
 	}
 	
 	public CollisionStrategy<StaticBlock> getCollisionStrategy() {
