@@ -28,6 +28,9 @@ public class StaticBlockCollisionStrategy extends CollisionStrategy<StaticBlock>
 		}else if (block.atRightBorder(ball.getCenterX(),ball.getCenterY())){
 			ball.setI(ball.getI() * -1);
 			ball.setX(block.getAbsoluteRightSide());
+		}else{
+			ball.setJ(ball.getJ() * -1);
+			ball.setY(block.getAbsoluteBottom());
 		}
 		block.reduceLife();
 	}

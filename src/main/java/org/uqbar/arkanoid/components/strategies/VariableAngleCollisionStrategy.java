@@ -30,11 +30,9 @@ public class VariableAngleCollisionStrategy extends CollisionStrategy<Paddle> {
 	
 
 
-public double obtainAngle(Paddle block, double x){
-		
+	public double obtainAngle(Paddle block, double x){
 		double majorAngle = Math.PI/3;
 		double minorAngle = Math.PI/3 * -1;
-		
 		return ((majorAngle - minorAngle)/block.getAppearance().getWidth()) * x + minorAngle;
 	}
 	

@@ -15,6 +15,7 @@ public class StaticBlock extends Block {
 	private CollisionStrategy<StaticBlock> collisionStrategy;
 	private int life;
 	private final Map<Integer,Color> mapColors;
+	private boolean isInCollision = false;
 
 	public StaticBlock(double width, double height,int life, double x, double y) {
 		this.life = life;
@@ -37,8 +38,10 @@ public class StaticBlock extends Block {
 
 	@Override
 	public void update(DeltaState deltaState) {
-		if(this.collideWith(this.getScene().getBall())){
+		if(this.collideWith(this.getScene().getBall()) && !this.isInCollision()){
+			this.setInCollision(true);
 			this.getCollisionStrategy().hit(this);
+			this.setInCollision(false);
 		}
 		super.update(deltaState);
 	}
@@ -69,11 +72,21 @@ public class StaticBlock extends Block {
 	}
 
 	public boolean atLeftBorder(int centerX, int centerY) {
-		return centerY > this.getY() && centerY < this.getAbsoluteBottom() && centerX > this.getAbsoluteRightSide(); 
+		return 
+				centerY > this.getY() && 
+				centerY < this.getAbsoluteBottom() && 
+				centerX > this.getAbsoluteRightSide() &&
+				!this.atBottomBorder(centerX, centerY) &&
+				!this.atTopBorder(centerX, centerY);
 	}
 
 	public boolean atRightBorder(int centerX, int centerY) {
-		return centerY > this.getY() && centerY < this.getAbsoluteBottom() && centerX < this.getX(); 
+		return 
+				centerY > this.getY() && 
+				centerY < this.getAbsoluteBottom() && 
+				centerX < this.getX() &&
+				!this.atBottomBorder(centerX, centerY) &&
+				!this.atTopBorder(centerX, centerY); 
 	}
 	
 	public CollisionStrategy<StaticBlock> getCollisionStrategy() {
@@ -101,5 +114,13 @@ public class StaticBlock extends Block {
 
 	public void setLife(int life) {
 		this.life = life;
+	}
+
+	public boolean isInCollision() {
+		return isInCollision;
+	}
+
+	public void setInCollision(boolean isInCollision) {
+		this.isInCollision = isInCollision;
 	}
 }

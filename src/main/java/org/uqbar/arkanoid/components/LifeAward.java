@@ -9,7 +9,7 @@ import com.uqbar.vainilla.colissions.CollisionDetector;
 
 public class LifeAward extends GameComponent<ArkanoidLevelScene> {
 
-	private double speed = 40;
+	private double speed = 50;
 
 	
 	public LifeAward(){
