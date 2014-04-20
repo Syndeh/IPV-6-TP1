@@ -4,19 +4,19 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.uqbar.arkanoid.appearences.RectangleWithBorder;
 import org.uqbar.arkanoid.components.strategies.CollisionStrategy;
 import org.uqbar.arkanoid.components.strategies.StaticBlockCollisionStrategy;
 import org.uqbar.arkanoid.utils.TetrisSpriteSheetHelper;
 
 import com.uqbar.vainilla.DeltaState;
+import com.uqbar.vainilla.sound.SoundBuilder;
+
 
 public class StaticBlock extends Block {
 	
 	private CollisionStrategy<StaticBlock> collisionStrategy;
 	private int life;
 	private final Map<Integer,Color> mapColors;
-	private boolean isInCollision = false;
 
 	public StaticBlock(double width, double height,int life, double x, double y) {
 		this.life = life;
@@ -24,7 +24,9 @@ public class StaticBlock extends Block {
 		this.collisionStrategy = new StaticBlockCollisionStrategy();
 		this.setX(x);
 		this.setY(y);
-		this.setAppearance(new RectangleWithBorder(this.determineColor(), (int)width, (int)height));
+		this.setWidth(width);
+		this.setHeight(height);
+		this.determineAppearance();
 	}
 	
 	private void determineAppearance() {
@@ -33,20 +35,18 @@ public class StaticBlock extends Block {
 
 	private Map<Integer, Color> generateMapsColors() {
 		Map<Integer, Color> map = new HashMap<Integer,Color>();
-		map.put(1,Color.ORANGE);
-		map.put(2,Color.MAGENTA);
+		map.put(1,Color.GREEN);
+		map.put(2,Color.CYAN);
 		map.put(3,Color.BLUE);
 		map.put(4,Color.YELLOW);
-		map.put(5,Color.PINK);
+		map.put(5,Color.RED);
 		return map;
 	}
 
 	@Override
 	public void update(DeltaState deltaState) {
-		if(this.collideWith(this.getScene().getBall()) && !this.isInCollision()){
-			this.setInCollision(true);
+		if(this.collideWith(this.getScene().getBall())){
 			this.getCollisionStrategy().hit(this);
-			this.setInCollision(false);
 		}
 		super.update(deltaState);
 	}
@@ -69,37 +69,19 @@ public class StaticBlock extends Block {
 	}
 
 	public boolean atBottomBorder(int centerX, int centerY) {
-		return 
-//				centerX > this.getX() && 
-//				centerX < this.getAbsoluteRightSide() && 
-				centerY > this.getAbsoluteBottom(); 
+		return centerY > this.getAbsoluteBottom(); 
 	}
 
 	public boolean atTopBorder(int centerX, int centerY) {
-		return 
-//				centerX > this.getX() &&
-//				centerX < this.getAbsoluteRightSide() &&
-				centerY < this.getY(); 
+		return centerY < this.getY(); 
 	}
 
 	public boolean atLeftBorder(int centerX, int centerY) {
-		return 
-				centerY > this.getY() && 
-				centerY < this.getAbsoluteBottom() && 
-				centerX < this.getX();
-//				&&
-//				!this.atBottomBorder(centerX, centerY) &&
-//				!this.atTopBorder(centerX, centerY);
+		return centerY > this.getY() &&	centerY < this.getAbsoluteBottom() && centerX < this.getX();
 	}
 
 	public boolean atRightBorder(int centerX, int centerY) {
-		return 
-				centerY > this.getY() && 
-				centerY < this.getAbsoluteBottom() && 
-				centerX > this.getAbsoluteRightSide();
-//				&&
-//				!this.atBottomBorder(centerX, centerY) &&
-//				!this.atTopBorder(centerX, centerY); 
+		return centerY > this.getY() &&	centerY < this.getAbsoluteBottom() && centerX > this.getAbsoluteRightSide();
 	}
 	
 	public CollisionStrategy<StaticBlock> getCollisionStrategy() {
@@ -114,9 +96,10 @@ public class StaticBlock extends Block {
 	public void reduceLife() {
 		this.life--;
 		if(this.getLife() == 0){
-			this.getScene().removeComponent(this);
+			new SoundBuilder().buildSound("/sounds/break_block.wav").play(1);
+			this.getScene().removeBlock(this);
 		}else if (this.getLife() > 0 ){
-			this.setAppearance(new RectangleWithBorder(this.determineColor(), (int)this.getAppearance().getWidth(), (int)this.getAppearance().getHeight()));
+			this.determineAppearance();
 			this.getScene().addPoint();                   
 		}
 	}
@@ -129,11 +112,4 @@ public class StaticBlock extends Block {
 		this.life = life;
 	}
 
-	public boolean isInCollision() {
-		return this.isInCollision;
-	}
-
-	public void setInCollision(boolean isInCollision) {
-		this.isInCollision = isInCollision;
-	}
 }

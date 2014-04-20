@@ -14,13 +14,17 @@ public class PointsCounter extends GameComponent<GameScene> {
 	
 	public PointsCounter() {
 		this.points = 0;
-		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 20), Color.BLACK, "Points: " + this.getPoints()));
+		this.determineAppearance();
 	}
 
 	@Override
 	public void update(DeltaState deltaState) {
-		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 20), Color.BLACK, "Points: " + this.getPoints()));
+		this.determineAppearance();
 		super.update(deltaState);
+	}
+
+	private void determineAppearance() {
+		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 20), Color.WHITE, "Puntos: " + this.getPoints()));
 	}
 
 	public int getPoints() {

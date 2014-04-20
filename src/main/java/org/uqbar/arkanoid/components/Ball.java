@@ -9,6 +9,7 @@ import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Circle;
 import com.uqbar.vainilla.appearances.Sprite;
+import com.uqbar.vainilla.sound.SoundBuilder;
 
 public class Ball extends GameComponent<ArkanoidLevelScene>{
 	
@@ -19,8 +20,6 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 	private double rotation = 0;
 	
 	public Ball(Color color) {
-//		this.setAppearance(new Circle(color,2*this.radius));
-		
 		super(Sprite.fromImage("images/eclipse_ball.png").scaleTo(2* 10, 2*10 ),0,0);
 	}
 	
@@ -37,7 +36,7 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 			this.rotation += advanced / 100;
 			
 			this.move(this.i * advanced, this.j * advanced);
-//			this.setAppearance(Sprite.fromImage("images/eclipse_ball.png").scaleTo(2* this.radius, 2*this.radius ).rotate(this.rotation ));
+			//this.setAppearance(Sprite.fromImage("images/eclipse_ball.png").scaleTo(2* this.radius, 2*this.radius ).rotate(this.rotation ));
 			this.checkRebound();
 		}
 		
@@ -55,13 +54,20 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		}else if (this.atTopBorder()){
 			this.j = this.j * -1;
 			this.setY(0);
+			this.playReboundSound();
 		}else if (this.atLeftBorder()){
 			this.i = this.i * -1;
 			this.setX(0);
+			this.playReboundSound();
 		}else if (this.atRightBorder()){
 			this.i = this.i * -1;
+			this.playReboundSound();
 			this.setX(this.getGame().getDisplayWidth() - this.radius * 2);
 		}
+	}
+
+	private void playReboundSound() {
+		new SoundBuilder().buildSound("/sounds/blop.wav").play(1);
 	}
 
 	private boolean atBottomBorder() {
@@ -99,11 +105,6 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		this.setStopped(false);
 	}
 	
-	public void setAngle(double pi) {
-		this.setI(Math.cos(Math.PI * pi));
-		this.setJ(Math.sin(Math.PI * pi));
-	}
-	
 	public int getCenterX(){
 		return (int)this.getX() + this.getRadius();
 	}
@@ -112,6 +113,11 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 		return (int)this.getY() + this.getRadius();
 	}
 
+	public void setAngle(double pi) {
+		this.setI(Math.cos(Math.PI * pi));
+		this.setJ(Math.sin(Math.PI * pi));
+	}
+	
 	public double getI() {
 		return this.i;
 	}
@@ -126,6 +132,14 @@ public class Ball extends GameComponent<ArkanoidLevelScene>{
 
 	public void setJ(double j) {
 		this.j = j;
+	}
+	
+	public void inverseVerticalDirection() {
+		this.setI(this.getI() * -1);
+	}
+	
+	public void inverseHorizontalDirection() {
+		this.setJ(this.getJ() * -1);
 	}
 
 	public double getSpeed() {

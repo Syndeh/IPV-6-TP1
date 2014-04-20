@@ -15,12 +15,12 @@ public class SpeedMeter extends GameComponent<ArkanoidLevelScene> {
 	
 	public SpeedMeter() {
 		this.lives = 3;
-		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.ITALIC, 15), Color.DARK_GRAY, "Speed: " + 0 + " px/s"));
+		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.ITALIC, 15), Color.DARK_GRAY, "Velocidad: " + 0 + " px/s"));
 	}
 
 	@Override
 	public void update(DeltaState deltaState) {
-		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.ITALIC, 15), Color.DARK_GRAY, "Speed: " + this.getScene().getBall().getSpeed() + " px/s"));
+		this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.ITALIC, 15), Color.DARK_GRAY, "Velocidad: " + this.getScene().getBall().getSpeed() + " px/s"));
 		super.update(deltaState);
 	}
 

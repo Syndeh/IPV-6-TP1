@@ -24,7 +24,7 @@ public class VariableAngleCollisionStrategy extends CollisionStrategy<Paddle> {
 		double ySign = Math.signum(y);
 		ball.setI(x);
 		ball.setJ( (y)* -1 * ySign);
-		ball.goFaster(5);
+		ball.goFaster(2);
 		
 	}
 	

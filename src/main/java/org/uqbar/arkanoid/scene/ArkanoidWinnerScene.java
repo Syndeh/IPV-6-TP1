@@ -5,7 +5,7 @@ import org.uqbar.arkanoid.components.ScreenMessage;
 import com.uqbar.vainilla.GameScene;
 import com.uqbar.vainilla.sound.SoundBuilder;
 
-public class ArkanoidGameOverScene extends GameScene {
+public class ArkanoidWinnerScene extends GameScene {
 	
 	@Override
 	public void onSetAsCurrent() {
@@ -17,8 +17,8 @@ public class ArkanoidGameOverScene extends GameScene {
 	 * Ventana de ejecución para la inicialización de los componentes.
 	 */
 	protected void initializeComponents() {
-		this.addComponent(new ScreenMessage("Game Over :("));
-		new SoundBuilder().buildSound("/sounds/gameover.wav").play(1);
+		this.addComponent(new ScreenMessage("Ganaste!"));
+		new SoundBuilder().buildSound("/sounds/stage_clear.wav").play(1);
 	}
 	
 }
