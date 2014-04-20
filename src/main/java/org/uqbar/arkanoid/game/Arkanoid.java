@@ -15,10 +15,6 @@ public class Arkanoid extends Game {
 	}
 
 	@Override
-	protected void initializeResources() {
-	}
-
-	@Override
 	protected void setUpScenes() {
 		ArkanoidLevelOneScene scene = new ArkanoidLevelOneScene();		
 		this.setCurrentScene(scene);
@@ -32,6 +28,10 @@ public class Arkanoid extends Game {
 	@Override
 	public String getTitle() {
 		return "Arkanoid";
+	}
+
+	@Override
+	protected void initializeResources() {
 	}
 
 }

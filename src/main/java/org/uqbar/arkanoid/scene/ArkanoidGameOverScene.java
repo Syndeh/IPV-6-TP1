@@ -1,5 +1,6 @@
 package org.uqbar.arkanoid.scene;
 
+import org.uqbar.arkanoid.components.PointsCounter;
 import org.uqbar.arkanoid.components.ScreenMessage;
 
 import com.uqbar.vainilla.GameScene;
@@ -7,6 +8,10 @@ import com.uqbar.vainilla.sound.SoundBuilder;
 
 public class ArkanoidGameOverScene extends GameScene {
 	
+	public ArkanoidGameOverScene(PointsCounter pointCounter) {
+		this.addComponent(pointCounter);
+	}
+
 	@Override
 	public void onSetAsCurrent() {
 		this.initializeComponents();

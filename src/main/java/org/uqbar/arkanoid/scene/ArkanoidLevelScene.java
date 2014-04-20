@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uqbar.arkanoid.components.Sight;
 import org.uqbar.arkanoid.components.Ball;
 import org.uqbar.arkanoid.components.LifeAward;
 import org.uqbar.arkanoid.components.LivesCounter;
 import org.uqbar.arkanoid.components.Paddle;
 import org.uqbar.arkanoid.components.PointsCounter;
+import org.uqbar.arkanoid.components.Sight;
 import org.uqbar.arkanoid.components.SpeedMeter;
 import org.uqbar.arkanoid.components.StaticBlock;
 
@@ -23,10 +23,8 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	private LivesCounter livesCounter;
 	private PointsCounter pointCounter;
 	private SpeedMeter speedMeter;
-		
 	private Ball ball;
 	private Paddle paddleBlock;
-	
 	private List<LifeAward> lifeAwards = new ArrayList<LifeAward>();
 	private Sight arrowSight = new Sight();
 
@@ -140,18 +138,16 @@ public abstract class ArkanoidLevelScene extends GameScene {
 			this.initializeArrowSight();
 		} else {
 			this.getBall().destroy();
-			this.getGame().setCurrentScene(new ArkanoidGameOverScene());
+			this.getGame().setCurrentScene(new ArkanoidGameOverScene(this.getPointCounter()));
 		}
 	}
 
 	protected void resetComponents() {
 		this.getPaddleBlock().destroy();
 		this.getBall().destroy();
-		
 		for (LifeAward lifeAward : this.getLifeAwards()) {
 			lifeAward.destroy();
 		}
-		
 		this.initializePaddleBlock();
 		this.initializeBall();
 		this.initializeArrowSight();
@@ -183,16 +179,14 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	}
 	
 	public void checkLevelPassed() {
-		if( blocks.isEmpty() ) {
-			// Ganaste!
+		if( this.blocks.isEmpty() ) {
 			this.getBall().destroy();
-			this.getGame().setCurrentScene(new ArkanoidWinnerScene());
+			this.getGame().setCurrentScene(new ArkanoidWinnerScene(this.getPointCounter()));
 		}
-		
 	}
 
 	protected List<LifeAward> getLifeAwards() {
-		return lifeAwards;
+		return this.lifeAwards;
 	}
 
 	protected void setLifeAwards(List<LifeAward> lifeAwards) {
@@ -200,7 +194,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	}
 
 	public Sight getArrowSight() {
-		return arrowSight;
+		return this.arrowSight;
 	}
 
 	public void setArrowSight(Sight arrowSight) {

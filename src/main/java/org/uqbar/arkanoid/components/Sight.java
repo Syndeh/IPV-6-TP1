@@ -7,7 +7,6 @@ import org.uqbar.arkanoid.scene.ArkanoidLevelScene;
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Circle;
-
 import com.uqbar.vainilla.events.constants.Key;
 
 public class Sight extends GameComponent<ArkanoidLevelScene> {
@@ -18,26 +17,20 @@ public class Sight extends GameComponent<ArkanoidLevelScene> {
 	
 	public Sight(){
 		this.setAppearance(new Circle(Color.RED, 4));
-		
-		
 	}
 	
 	@Override
 	public void update(DeltaState deltaState) {
-		System.out.println("UPDATE");
 		double advanced = this.speed * deltaState.getDelta();
 		this.calcRotation(advanced/100);
 		this.setX(this.getScene().getPaddleBlock().obtainXCenter() + Math.cos(this.rotation)*50 -2 );
 		this.setY(this.getScene().getPaddleBlock().getY() + Math.sin(this.rotation)*50);
-
 		if(deltaState.isKeyPressed(Key.SPACE)){
-			
 			this.getScene().getBall().setI(Math.cos(this.rotation));
 			this.getScene().getBall().setJ(Math.sin(this.rotation));
 			this.getScene().getBall().start();
 			this.destroy();
 		}
-		
 		super.update(deltaState);
 	}
 
@@ -58,12 +51,10 @@ public class Sight extends GameComponent<ArkanoidLevelScene> {
 				this.direction=-1;
 			}
 		}
-		
-		
 	}
 
 	public double getSpeed() {
-		return speed;
+		return this.speed;
 	}
 
 	public void setSpeed(double speed) {

@@ -19,7 +19,6 @@ public class VariableAngleCollisionStrategy extends CollisionStrategy<Paddle> {
 		double collisionPoint = this.obtainCollisionPoint(block,ball);
 		double angle = this.obtainAngle(block,collisionPoint);
 		double x = Math.sin(angle);
-
 		double y = Math.cos(angle);
 		double ySign = Math.signum(y);
 		ball.setI(x);
@@ -28,8 +27,6 @@ public class VariableAngleCollisionStrategy extends CollisionStrategy<Paddle> {
 		
 	}
 	
-
-
 	public double obtainAngle(Paddle block, double x){
 		double majorAngle = Math.PI/3;
 		double minorAngle = Math.PI/3 * -1;
