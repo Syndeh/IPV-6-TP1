@@ -3,6 +3,7 @@ package org.uqbar.arkanoid.scene;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uqbar.arkanoid.components.Sight;
 import org.uqbar.arkanoid.components.Ball;
 import org.uqbar.arkanoid.components.LifeAward;
 import org.uqbar.arkanoid.components.LivesCounter;
@@ -25,6 +26,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 	private Paddle paddleBlock;
 	private final List<StaticBlock> staticBlocks = new ArrayList<StaticBlock>();
 	private List<LifeAward> lifeAwards = new ArrayList<LifeAward>();
+	private Sight arrowSight = new Sight();
 
 	
 	@Override
@@ -43,6 +45,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		this.initializePointsCounter();
 		this.initializeLivesCounter();
 		this.initializeSpeedMeter();
+		this.initializeArrowSight();
 	}
 
 	protected abstract void initializePaddleBlock();
@@ -70,6 +73,13 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		this.getSpeedMeter().setX(5);
 		this.getSpeedMeter().setY(this.getGame().getDisplayHeight() - 20);
 		this.addComponent(this.getSpeedMeter());
+	}
+	
+	private void initializeArrowSight(){
+		this.setArrowSight(new Sight());
+		this.getArrowSight().setX(this.getPaddleBlock().obtainXCenter() -1);
+		this.getArrowSight().setY(this.getPaddleBlock().getY() - 50);
+		this.addComponent(this.getArrowSight());
 	}
 
 	public Ball getBall() {
@@ -118,6 +128,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		if (this.getLivesCounter().getLives() > 0) {
 			this.getLivesCounter().removeLife();
 			this.resetComponents();
+			this.initializeArrowSight();
 		} else {
 			this.getBall().destroy();
 			this.getGame().setCurrentScene(new ArkanoidGameOverScene());
@@ -134,6 +145,7 @@ public abstract class ArkanoidLevelScene extends GameScene {
 		
 		this.initializePaddleBlock();
 		this.initializeBall();
+		this.initializeArrowSight();
 	}
 
 	protected SpeedMeter getSpeedMeter() {
@@ -171,5 +183,13 @@ public abstract class ArkanoidLevelScene extends GameScene {
 
 	protected void setLifeAwards(List<LifeAward> lifeAwards) {
 		this.lifeAwards = lifeAwards;
+	}
+
+	public Sight getArrowSight() {
+		return arrowSight;
+	}
+
+	public void setArrowSight(Sight arrowSight) {
+		this.arrowSight = arrowSight;
 	}
 }

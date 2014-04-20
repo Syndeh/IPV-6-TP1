@@ -28,10 +28,6 @@ public class LateralMovementStrategy extends MovementStrategy<Paddle> {
 		if(block.getScene().getBall().isStopped())
 		{
 			block.getScene().getBall().setX(block.obtainXCenter() - block.getScene().getBall().getRadius());
-			if(deltaState.isKeyPressed(Key.SPACE))
-			{
-				block.getScene().getBall().start();
-			}
 		}
 	}
 

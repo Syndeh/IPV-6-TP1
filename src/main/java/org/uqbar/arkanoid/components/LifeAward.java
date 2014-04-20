@@ -30,8 +30,6 @@ public class LifeAward extends GameComponent<ArkanoidLevelScene> {
 		super.update(deltaState);
 	}
 	
-	
-
 	private boolean collideWithPaddle() {
 		return CollisionDetector
 				.INSTANCE
