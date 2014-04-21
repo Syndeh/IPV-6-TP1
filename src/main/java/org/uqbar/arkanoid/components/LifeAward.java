@@ -10,7 +10,7 @@ import com.uqbar.vainilla.sound.SoundBuilder;
 
 public class LifeAward extends GameComponent<ArkanoidLevelScene> {
 
-	private double speed = 50;
+	private final double speed = 150;
 
 	
 	public LifeAward(){
@@ -45,7 +45,7 @@ public class LifeAward extends GameComponent<ArkanoidLevelScene> {
 	}
 
 	private double getSpeed() {
-		return speed;
+		return this.speed;
 	}
 
 

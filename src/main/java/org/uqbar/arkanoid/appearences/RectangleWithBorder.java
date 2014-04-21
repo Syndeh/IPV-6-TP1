@@ -37,7 +37,7 @@ public class RectangleWithBorder extends Rectangle {
 	}
 
 	protected Color getColor() {
-		return color;
+		return this.color;
 	}
 
 	protected void setColor(Color color) {

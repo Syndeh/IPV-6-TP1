@@ -140,6 +140,11 @@ public abstract class ArkanoidLevelScene extends GameScene {
 			this.getBall().destroy();
 			this.getGame().setCurrentScene(new ArkanoidGameOverScene(this.getPointCounter()));
 		}
+		 try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void resetComponents() {
